@@ -7,9 +7,9 @@
 <body>
 
  <h1><center> Sign in here </h1>
- <form><center>
- <input type = "text" placeholder="Enter ID" name= "IDhtml" id="IDhtml" ><br><br>
- <input type = "text" placeholder="Enter Password" name= "Passhtml" id="Passhtml" ><br><br>
+ <form method="post"><center>
+    {%csrf_token%}
+    {{form}}
  <input type= "submit" submit>
  </form>
 </body>
