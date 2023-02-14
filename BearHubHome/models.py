@@ -4,4 +4,5 @@ class Student(models.Model):
     Last_name = models.CharField(max_length=64)
     grade_level = models.IntegerField()
     password= models.CharField(max_length=64)
+    points = models.IntegerField()
 # Create your models here.

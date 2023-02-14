@@ -1,13 +1,23 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from datetime import date
 from django import forms
+from django.urls import reverse
 from BearHubHome.models import Student
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 class LogInForm(forms.Form):
     id = forms.CharField(label="id")
     password = forms.CharField(label="password")
+
+def StudentPage(request):
+    SignedIn = request.GET.get('SignedIn')
+    if SignedIn == 'True':
+        return render(request, "HII/signedIn.html")
+    return HttpResponseRedirect(reverse("bear:index"))
+
 def index(request):
+    SignedIn = False
     if request.method=="POST":
         form = LogInForm(request.POST)
         if form.is_valid():
@@ -15,11 +25,14 @@ def index(request):
             idIn = form.cleaned_data.get("id")
             # next step check if the data is correct and sign the user into the signed in page
             try:
+
                 user = Student.objects.get(pk=idIn)
                 if user.password == passwordIn:
+                    SignedIn = True
                     # The password is correct, so the user is authenticated
-                    # ...
+                    # Make it so when the user enters in a invalid type it doesn't crash
                     print("Ur in")
+                    return HttpResponseRedirect(reverse("bear:stupage") + f"?SignedIn={SignedIn}")
                 else:
                     print("wrong credintals")    
             except Student.DoesNotExist:
@@ -33,11 +46,5 @@ def index(request):
 def kevin(request):
     return HttpResponse("Hello Kevin")
 
-def greet(request, name ):
-    data = {
-        'name': name
-    }
-    return render(request,"HII/greet.html",data)
 
 
-  

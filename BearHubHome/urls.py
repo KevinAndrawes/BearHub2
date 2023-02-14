@@ -4,6 +4,5 @@ app_name='bear'
 urlpatterns = [
 path("" ,views.index, name = "index"),
 path("kevin" , views.kevin,  name = "kevin"),
-path("<str:name>",views.greet,name="greet"),
-
+path('StudentPage',views.StudentPage,name="stupage")
 ]
