@@ -10,11 +10,14 @@ class LogInForm(forms.Form):
     id = forms.CharField(label="id")
     password = forms.CharField(label="password")
 
-def StudentPage(request):
-    SignedIn = request.GET.get('SignedIn')
-    if SignedIn == 'True':
-        return render(request, "HII/signedIn.html")
-    return HttpResponseRedirect(reverse("bear:index"))
+def StudentPage(request, user_id):
+    try:
+        user = Student.objects.get(pk=user_id)
+        print(user.points)
+        return render(request, "HII/signedIn.html", {"user": user})
+
+    except Student.DoesNotExist:
+        return HttpResponseRedirect(reverse("bear:index"))
 
 def index(request):
     SignedIn = False
@@ -27,12 +30,13 @@ def index(request):
             try:
 
                 user = Student.objects.get(pk=idIn)
+                print(user.pk)
                 if user.password == passwordIn:
                     SignedIn = True
                     # The password is correct, so the user is authenticated
                     # Make it so when the user enters in a invalid type it doesn't crash
                     print("Ur in")
-                    return HttpResponseRedirect(reverse("bear:stupage") + f"?SignedIn={SignedIn}")
+                    return HttpResponseRedirect(reverse("bear:stupage", args=[user.pk]))
                 else:
                     print("wrong credintals")    
             except Student.DoesNotExist:
