@@ -17,6 +17,13 @@ class SignUpForm(forms.Form):
     id = forms.CharField(label="School ID")
     password = forms.CharField(label="Password", widget=forms.PasswordInput())
     username = forms.CharField(label="Username")
+    CHOICES = [
+        ('choice9', '9th grade'),
+        ('choice10', '10th grade'),
+        ('choice11', '11th grade'),
+        ('choice12', '12th grade'),
+    ]
+    grade_level = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect)
 
 
 def StudentPage(request, user_id):
@@ -59,5 +66,6 @@ def index(request):
 def kevin(request):
     return HttpResponse("Hello Kevin")
 
-
+def SignUp(request):
+    return render(request,"HII/signUp.html")
 
