@@ -16,25 +16,13 @@ class SignUpForm(forms.Form):
     lastName = forms.CharField(label="Last Name")
     id = forms.CharField(label="School ID")
     password = forms.CharField(label="Password", widget=forms.PasswordInput())
-    username = forms.CharField(label="Username")
     CHOICES = [
-        ('choice9', '9th grade'),
-        ('choice10', '10th grade'),
-        ('choice11', '11th grade'),
-        ('choice12', '12th grade'),
+        ('9', '9th grade'),
+        ('10', '10th grade'),
+        ('11', '11th grade'),
+        ('12', '12th grade'),
     ]
-    grade_level = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect)
-
-
-def StudentPage(request, user_id):
-    try:
-        user = Student.objects.get(pk=user_id)
-        print(user.points)
-        return render(request, "HII/signedIn.html", {"user": user})
-
-    except Student.DoesNotExist:
-        return HttpResponseRedirect(reverse("bear:index"))
-
+    Grade_level = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect,label="Grade Level:")
 def index(request):
     SignedIn = False
     if request.method=="POST":
@@ -63,9 +51,43 @@ def index(request):
             form = LogInForm()
     return render(request,"HII/index.html",{"form":LogInForm()})
 
+def StudentPage(request, user_id):
+    try:
+        user = Student.objects.get(pk=user_id)
+        print(user.points)
+        return render(request, "HII/signedIn.html", {"user": user})
+
+    except Student.DoesNotExist:
+        return HttpResponseRedirect(reverse("bear:index"))
+
+def SignUp(request):
+    SignedIn = False
+    if request.method=="POST":
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            passwordIn = form.cleaned_data.get("password")
+            idIn = form.cleaned_data.get("id")
+            firstname = form.cleaned_data.get("firstName")
+            lastname = form.cleaned_data.get("lastName")
+            Grade_level = form.cleaned_data.get("Grade_level")
+            print(Grade_level)
+            # Create a new Student object with the submitted data
+            user = Student.objects.create(
+                id=idIn,
+                password=passwordIn,
+                First_name=firstname,
+                Last_name=lastname,
+                grade_level= Grade_level,
+                points= 0
+            )
+            # Redirect to the StudentPage with the new student's ID
+            return HttpResponseRedirect(reverse("bear:stupage", args=[user.id]))
+    else:
+        form = SignUpForm()
+    return render(request, "HII/signUp.html", {"form": form})
+
 def kevin(request):
     return HttpResponse("Hello Kevin")
 
-def SignUp(request):
-    return render(request,"HII/signUp.html")
+
 
