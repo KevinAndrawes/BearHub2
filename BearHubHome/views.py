@@ -7,8 +7,17 @@ from BearHubHome.models import Student
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 class LogInForm(forms.Form):
-    id = forms.CharField(label="id")
-    password = forms.CharField(label="password", widget=forms.PasswordInput())
+    id = forms.CharField(label="ID")
+    password = forms.CharField(label="Password", widget=forms.PasswordInput())
+
+#Class to sign up and create new user.
+class SignUpForm(forms.Form):
+    firstName = forms.CharField(label="First Name")
+    lastName = forms.CharField(label="Last Name")
+    id = forms.CharField(label="School ID")
+    password = forms.CharField(label="Password", widget=forms.PasswordInput())
+    username = forms.CharField(label="Username")
+
 
 def StudentPage(request, user_id):
     try:
