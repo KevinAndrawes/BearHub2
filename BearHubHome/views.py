@@ -23,7 +23,7 @@ class SignUpForm(forms.Form):
         ('12', '12th grade'),
     ]
     Grade_level = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect,label="Grade Level:")
-def index(request):
+def LogIn(request):
     SignedIn = False
     if request.method=="POST":
         form = LogInForm(request.POST)
@@ -45,11 +45,11 @@ def index(request):
                     print("wrong credintals")    
             except Student.DoesNotExist:
                 print("Studen doesnt exist")
-                
+   
                 
         else:
             form = LogInForm()
-    return render(request,"HII/index.html",{"form":LogInForm()})
+    return render(request,"HII/StudentPage.html",{"form":LogInForm()})
 
 def StudentPage(request, user_id):
     try:
@@ -58,7 +58,7 @@ def StudentPage(request, user_id):
         return render(request, "HII/signedIn.html", {"user": user})
 
     except Student.DoesNotExist:
-        return HttpResponseRedirect(reverse("bear:index"))
+        return HttpResponseRedirect(reverse("bear:LogIn"))
 
 def SignUp(request):
     SignedIn = False
@@ -88,6 +88,7 @@ def SignUp(request):
 
 def kevin(request):
     return HttpResponse("Hello Kevin")
-
+def index(request):
+    return render(request,"HII/index.html")
 
 
