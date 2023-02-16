@@ -1,11 +1,55 @@
-<!DOCTYPE html>
-<html lang = en>
-    <head>
-        <title> BearHub</title>
-    
-    </head>
-<body>
- <h1> Hello, student named {{user.First_name}} with {{user.points}}  points and in the grade {{user.grade_level}}</h1>
-</body>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>BearHub</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+			font-family: Arial, sans-serif;
+			background-color: #f5f5f5;
+		}
+		header {
+			background-color: #0077c2;
+			color: #fff;
+			padding: 10px;
+			text-align: center;
+		}
+		h1 {
+			margin: 20px;
+			font-size: 36px;
+			text-align: center;
+			color: #f9a03f;
+		}
+		.container {
+			margin: 20px;
+			padding: 20px;
+			background-color: #fff;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+			border: 3px solid #ff9c00;
+		}
+        .far-right {
+            margin: 20px;
+			padding: 20px;
+			background-color: #fff;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+	</style>
+</head>
+<body>
+	<header>
+		<h1>BearHub</h1>
+	</header>
+	<div class="container">
+		<h2>Hello, {{ user.First_name }}</h2>
+        <div class="far-right"> 
+            <h2>Current points: {{ user.points }}<br>
+                Grade Level: {{ user.grade_level }}</h2>
+        </div>
+	</div>
+    
+</body>
 </html>

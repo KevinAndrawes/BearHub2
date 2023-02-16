@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 class LogInForm(forms.Form):
     id = forms.CharField(label="id")
-    password = forms.CharField(label="password")
+    password = forms.CharField(label="password", widget=forms.PasswordInput())
 
 def StudentPage(request, user_id):
     try:
