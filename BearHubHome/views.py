@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
-from datetime import date
 from django import forms
 from django.urls import reverse
 from BearHubHome.models import Student
@@ -50,7 +49,6 @@ def LogIn(request):
         else:
             form = LogInForm()
     return render(request,"HII/StudentPage.html",{"form":LogInForm()})
-
 def StudentPage(request, user_id):
     try:
         user = Student.objects.get(pk=user_id)
@@ -61,7 +59,7 @@ def StudentPage(request, user_id):
         return HttpResponseRedirect(reverse("bear:LogIn"))
 
 def SignUp(request):
-    SignedIn = False
+
     if request.method=="POST":
         form = SignUpForm(request.POST)
         if form.is_valid():
