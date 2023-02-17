@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
-import django.contrib.auth.urls
+from django.contrib.auth.decorators import login_required
+
 app_name='bear'
 urlpatterns = [
 path("",views.index,name="index"),

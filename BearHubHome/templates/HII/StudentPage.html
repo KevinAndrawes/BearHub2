@@ -49,11 +49,15 @@
     </style>
   </head>
   <body>
-    <h1>Sign in here</h1>
+    <h1>Log In</h1>
     <form method="post">
       {% csrf_token %}
       {{ form.as_p }}
       <input type="submit" value="Submit">
+      <a href="{% url 'bear:index' %}" style="float: right;display: block; margin-top: 75px;">Back</a>
+      <a href="{% url 'bear:signUp' %}" style="display: block; margin-top: 20px;">Need to Sign Up? Click Here</a>
+
     </form>
+
   </body>
 </html>
