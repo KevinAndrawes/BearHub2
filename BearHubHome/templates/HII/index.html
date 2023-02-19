@@ -8,8 +8,9 @@
         font-family: Arial, sans-serif;
         background-color: #f9a03f;
         color: #283c6d;
+        margin: 0;
       }
-      h1 {
+      h1, p {
         text-align: center;
         margin-top: 50px;
       }
@@ -44,13 +45,49 @@
         margin-top: 20px;
       }
       input[type="submit"]:hover {
-        background-color: #1d2c52;
+        background-color: #283c6d;
+      }
+      button {
+        background-color: #283c6d;
+        color: #fff;
+        width: 140px; 
+        height: 80px;
+        font-size: xx-large;
+        font-weight: bold;
+        border: 3px solid #283c6d;
+        border-radius: 10px;
+        cursor: pointer;
+        display: block;
+        margin: 10px auto;
+        transition-duration: 0.4s;
+        border-radius: 20px;
+      }
+      button:hover {
+        background-color: #283c6d;
+        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+        background-color: white;
+        color: #283c6d;
+      }
+      .a {
+        text-align: center;
+      }
+      .header {
+        padding: 60px;
+        text-align: center;
+        background: #283c6d;
+        color: white;
+        font-size: 30px;
       }
     </style>
   </head>
   <body>
-    <h1>Landing</h1>
-    <p>Welcome to BearHub, the place for students to connect and collaborate!</p>
-    <p> <a href="{% url 'bear:LogIn' %}"> Hi</a></p>
+    <div class="header">
+      <h1>BearHub</h1>
+      <p>The place for students to connect and collaborate!</p>
+    </div>
+    <button style="margin-top: 100px;"onclick=window.location.href="{% url 'bear:LogIn' %}";>
+      Log In
+    </button>
+    <a href="{% url 'bear:signUp' %}" style="text-align: center; display: block;">click here to sign up</a>
   </body>
 </html>
