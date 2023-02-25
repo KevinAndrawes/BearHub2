@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django import forms
 from django.urls import reverse
-from BearHubHome.models import Student
+from BearHubHome.models import Student, Event
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 class LogInForm(forms.Form):
@@ -35,7 +35,6 @@ def LogIn(request):
                 if user.password == passwordIn:
                     SignedIn = True
                     # The password is correct, so the user is authenticated
-                    # Make it so when the user enters in a invalid type it doesn't crash
                     return HttpResponseRedirect(reverse("bear:stupage", args=[user.pk]))
                 else:
                     print("wrong credintals")    
@@ -51,7 +50,11 @@ def LogIn(request):
 def StudentPage(request, user_id):
     try:
         user = Student.objects.get(pk=user_id)
-        return render(request, "HII/signedIn.html", {"user": user})
+        
+        events = user.event.all()
+        for event in events:
+            print(event.name)
+        return render(request, "HII/signedIn.html", {"user": user,"events": events})
 
     except Student.DoesNotExist:
         return HttpResponseRedirect(reverse("bear:LogIn"))
