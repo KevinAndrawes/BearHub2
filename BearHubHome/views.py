@@ -65,6 +65,9 @@ def SignUp(request):
             firstname = form.cleaned_data.get("firstName")
             lastname = form.cleaned_data.get("lastName")
             Grade_level = form.cleaned_data.get("Grade_level")
+            if Student.objects.filter(pk=idIn).exists():
+                error_message = "This student ID is already taken. Please enter a different ID."
+                return render(request, "HII/signUp.html", {"form": form, "error_message": error_message})
             # Create a new Student object with the submitted data
             user = Student.objects.create(
                 id=idIn,
@@ -84,5 +87,5 @@ def kevin(request):
     return HttpResponse("Hello Kevin")
 def index(request):
     return render(request,"HII/index.html")
-
-
+def events(request):
+    pass
