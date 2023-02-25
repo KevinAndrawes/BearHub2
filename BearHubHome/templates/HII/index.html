@@ -6,8 +6,8 @@
     <style>
       body {
         font-family: Arial, sans-serif;
-        background-color: #f9a03f;
-        color: #283c6d;
+        background-color: #fe914c;
+        color: #063573;
         margin: 0;
       }
       h1, p {
@@ -21,7 +21,7 @@
         padding: 20px;
         border-radius: 10px;
         box-shadow: 0px 0px 10px #888888;
-        border: 2px solid #f9a03f;
+        border: 2px solid #fe914c;
       }
       label {
         display: block;
@@ -36,7 +36,7 @@
         margin-bottom: 20px;
       }
       input[type="submit"] {
-        background-color: #283c6d;
+        background-color: #063573;
         color: #fff;
         padding: 10px 20px;
         border: none;
@@ -45,16 +45,16 @@
         margin-top: 20px;
       }
       input[type="submit"]:hover {
-        background-color: #283c6d;
+        background-color: #063573;
       }
       button {
-        background-color: #283c6d;
+        background-color: #063573;
         color: #fff;
         width: 140px; 
         height: 80px;
         font-size: xx-large;
         font-weight: bold;
-        border: 3px solid #283c6d;
+        border: 3px solid #063573;
         border-radius: 10px;
         cursor: pointer;
         display: block;
@@ -63,10 +63,10 @@
         border-radius: 20px;
       }
       button:hover {
-        background-color: #283c6d;
+        background-color: #063573;
         box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
         background-color: white;
-        color: #283c6d;
+        color: #063573;
       }
       .a {
         text-align: center;
@@ -74,7 +74,7 @@
       .header {
         padding: 60px;
         text-align: center;
-        background: #283c6d;
+        background: #063573;
         color: white;
         font-size: 30px;
       }
@@ -84,7 +84,7 @@
         box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
       }
       .topnav a {
-        float: left;
+        float: right;
         color: #f2f2f2;
         text-align: center;
         padding: 14px 16px;
@@ -99,12 +99,15 @@
         background-color: #04AA6D;
         color: white;
       }
+      .topnav a.split {
+        float: left;
+      }
     </style>
   </head>
   <body>
     <div class="topnav">
-      <a href="{% url 'bear:LogIn' %}">Log In</a>
       <a href="{% url 'bear:signUp' %}">Sign Up</a>
+      <a href="{% url 'bear:LogIn' %}">Log In</a>
     </div>
     <div class="header">
       <h1>BearHub</h1>
