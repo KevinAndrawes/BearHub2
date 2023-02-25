@@ -24,14 +24,13 @@ class SignUpForm(forms.Form):
     Grade_level = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect,label="Grade Level:")
 def LogIn(request):
     SignedIn = False
-    if request.method=="POST":
+    if request.method == "POST":
         form = LogInForm(request.POST)
         if form.is_valid():
             passwordIn = form.cleaned_data.get("password")
             idIn = form.cleaned_data.get("id")
             # next step check if the data is correct and sign the user into the signed in page
             try:
-
                 user = Student.objects.get(pk=idIn)
                 if user.password == passwordIn:
                     SignedIn = True
@@ -40,13 +39,15 @@ def LogIn(request):
                     return HttpResponseRedirect(reverse("bear:stupage", args=[user.pk]))
                 else:
                     print("wrong credintals")    
-            except Student.DoesNotExist:
-                print("Studen doesnt exist")
-   
-                
+            except (Student.DoesNotExist, ValueError):
+                form.add_error('id', 'You seem to have entered in incorrect credintials. Please try again')
+                error_message = form.errors['id'][0]
+                print(form.errors)
+
+                return render(request, "HII/StudentPage.html", {"form": form, "error_message": error_message})
         else:
             form = LogInForm()
-    return render(request,"HII/StudentPage.html",{"form":LogInForm()})
+    return render(request, "HII/StudentPage.html", {"form": LogInForm()})
 def StudentPage(request, user_id):
     try:
         user = Student.objects.get(pk=user_id)

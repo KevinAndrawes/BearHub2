@@ -26,6 +26,9 @@
         display: block;
         margin-bottom: 10px;
       }
+      .errorlist {
+        display: none;
+      }
       input[type="text"], input[type="password"] {
         padding: 10px;
         width: 100%;
@@ -46,6 +49,9 @@
       input[type="submit"]:hover {
         background-color: #1d2c52;
       }
+      .alert-danger {
+        color: red;
+      }
     </style>
   </head>
   <body>
@@ -53,11 +59,16 @@
     <form method="post">
       {% csrf_token %}
       {{ form.as_p }}
+      {% if error_message %}
+  <div class="alert-danger" style="display:block;">
+    <p>{{ error_message }}</p>
+  </div>
+  {% endif %}
       <input type="submit" value="Submit">
       <a href="{% url 'bear:index' %}" style="float: right;display: block; margin-top: 75px;">Back</a>
       <a href="{% url 'bear:signUp' %}" style="display: block; margin-top: 20px;">Need to Sign Up? Click Here</a>
-
     </form>
 
   </body>
-</html>
+  
+  </html> 
