@@ -8,5 +8,7 @@ path("",views.index,name="index"),
 path("LogIn" ,views.LogIn, name = "LogIn"),
 path("kevin" , views.kevin,  name = "kevin"),
 path('StudentPage/<int:user_id>/',views.StudentPage,name="stupage"),
-path('SignUp',views.SignUp,name="signUp")
+path('SignUp',views.SignUp,name="signUp"),
+path('AdminLogIn',views.adminLogIn,name="adminLogIn"),
+path('AdminPage/<int:user_id>/',views.AdminPage,name="adpage")
 ]

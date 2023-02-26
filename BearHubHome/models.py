@@ -10,3 +10,8 @@ class Event(models.Model):
     date = models.DateField(max_length=24)
     point_value= models.IntegerField()
     students = models.ManyToManyField(Student, blank=True,related_name="event")
+    description=models.TextField(max_length=512)
+class AdminUser(models.Model):
+    First_name= models.CharField(max_length=64)
+    Last_name= models.CharField(max_length=64)
+    password= models.CharField(max_length=64)

@@ -55,7 +55,7 @@
     </style>
   </head>
   <body>
-    <h1>Student Log In</h1>
+    <h1>Admin Log In</h1>
     <form method="post">
       {% csrf_token %}
       {{ form.as_p }}
@@ -65,8 +65,7 @@
   </div>
   {% endif %}
       <input type="submit" value="Submit">
-      <a href="{% url 'bear:index' %}" style="float: right;display: block; margin-top: 75px;">Back</a>
-      <a href="{% url 'bear:signUp' %}" style="display: block; margin-top: 20px;">Need to Sign Up? Click Here</a>
+      <a href="{% url 'bear:index' %}" style="float: right;display: block; margin-top: 45px;">Back</a>
     </form>
 
   </body>
