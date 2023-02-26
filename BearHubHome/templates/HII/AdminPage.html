@@ -99,6 +99,20 @@
 			justify-content: center; 
 			color: #063573;
 		}
+		button {
+	background-color: #3961f0;
+	color: #fff;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 5px;
+	font-size: 16px;
+	cursor: pointer;
+	transition: background-color 0.3s;
+	}
+
+	button:hover {
+	background-color: #3961f0;
+	}
 	</style>
 </head>
 <body>
@@ -107,10 +121,26 @@
 	<header>
 		<h1>BearHub Admin</h1>
 	</header>
-	<div class="container">
-		<h2>Hello, {{ user.First_name }}</h2>
-		</div>
-		
+	<div class="containera">
+		<h2 class="table-title">Events</h2>
+		<table>
+			<tr>
+				<th>Event</th>
+				<th>Date</th>
+				<th>Description</th>
+				<th>Point Values</th>
+				<th></th>
+			</tr>
+			{% for event in events %}
+			<tr>
+				<td>{{ event.name }}</td>
+				<td>{{ event.date }}</td>
+				<td>{{ event.description}} </td>
+				<td>{{ event.point_value }}</td>
+				<td><button>Edit Values</button></td>
+			</tr>
+			{% endfor %}
+		</table>
 	</div>
 
 </body>
