@@ -4,6 +4,8 @@ from django import forms
 from django.urls import reverse
 from BearHubHome.models import Student, Event, AdminUser
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404
+
 # Create your views here.
 class LogInForm(forms.Form):
     id = forms.CharField(label="ID")
@@ -53,7 +55,9 @@ def StudentPage(request, user_id):
         user = Student.objects.get(pk=user_id)
         
         events = user.event.all()
-        return render(request, "HII/signedIn.html", {"user": user,"events": events})
+        Nonevents = Event.objects.exclude(id__in=user.event.all().values_list('id', flat=True))
+
+        return render(request, "HII/signedIn.html", {"user": user,"events": events,"Nonevents":Nonevents})
 
     except Student.DoesNotExist:
         return HttpResponseRedirect(reverse("bear:LogIn"))
@@ -117,7 +121,6 @@ def AdminPage(request, user_id):
     try:
         user = AdminUser.objects.get(pk=user_id)
         events = Event.objects.all()
-        return render(request, "HII/AdminPage.html", {"user": user,"events": events})
+        return render(request, "HII/AdminPage.html", {"user": user, "events": events})
     except AdminUser.DoesNotExist:
         return HttpResponseRedirect(reverse("bear:adminLogIn"))
-    

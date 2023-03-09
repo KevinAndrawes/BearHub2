@@ -115,6 +115,7 @@
 	}
 	</style>
 </head>
+
 <body>
 	<div class="topnav">
 	</div>
@@ -137,11 +138,12 @@
 				<td>{{ event.date }}</td>
 				<td>{{ event.description}} </td>
 				<td>{{ event.point_value }}</td>
-				<td><button>Edit Values</button></td>
+				<td><button class="edit-value-btn">Edit Value</button></td>
 			</tr>
 			{% endfor %}
 		</table>
 	</div>
-
+	
+	    
 </body>
 </html>
