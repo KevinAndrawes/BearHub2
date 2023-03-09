@@ -72,12 +72,12 @@
 			float: left;
 		}
 		table {
-			border-collapse: collapse;
-			margin: 20px;
-			table-layout: fixed;
-			border-radius: 10px;
-			overflow: hidden;
-		}
+    border-collapse: collapse;
+    margin: 20px;
+    table-layout: auto;
+    border-radius: 10px;
+    overflow: hidden;
+}
 		th, td {
 			padding: 20px;
 			text-align: left;
@@ -113,6 +113,17 @@
 	button:hover {
 	background-color: #3961f0;
 	}
+	input[type=text] {
+		padding: 10px;
+        width: 100%;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+        margin-bottom: 20px;
+}
+.description {
+    width: 400px;
+}
 	</style>
 </head>
 
@@ -134,11 +145,11 @@
 			</tr>
 			{% for event in events %}
 			<tr>
-				<td>{{ event.name }}</td>
-				<td>{{ event.date }}</td>
-				<td>{{ event.description}} </td>
-				<td>{{ event.point_value }}</td>
-				<td><button class="edit-value-btn">Edit Value</button></td>
+				<td><input type="text" class = "fields" value= "{{ event.name }}"></td>
+				<td><input type="text" class = "fields" value= "{{ event.date }}"></td>
+				<td><input type="text" class = "description" value= "{{ event.description}}"></td>
+				<td><input type="text"class = "fields" value= "{{ event.point_value }}"></td>
+				<td><button class="edit-value-btn">Save Values</button></td>
 			</tr>
 			{% endfor %}
 		</table>
