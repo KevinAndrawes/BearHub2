@@ -5,7 +5,8 @@ from django.urls import reverse
 from BearHubHome.models import Student, Event, AdminUser
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
-
+import json
+from django.http import JsonResponse
 # Create your views here.
 class LogInForm(forms.Form):
     id = forms.CharField(label="ID")
@@ -124,3 +125,20 @@ def AdminPage(request, user_id):
         return render(request, "HII/AdminPage.html", {"user": user, "events": events})
     except AdminUser.DoesNotExist:
         return HttpResponseRedirect(reverse("bear:adminLogIn"))
+def Update(request):
+
+    if request.method == 'POST':
+        values = json.loads(request.body)
+        
+        for value in values:
+            # update the event with the specified values
+            # (assuming you have an Event model with name, date, description, and point_value fields)
+            event = Event.objects.get(name=value['name'])
+            event.description = value['description']
+            event.point_value = value['point_value']
+            event.name=value['name']
+
+            event.save()
+        return JsonResponse({'success': True})
+    else:
+        return JsonResponse({'success': False, 'error': 'Invalid request method'})
