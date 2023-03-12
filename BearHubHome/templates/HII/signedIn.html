@@ -99,6 +99,16 @@
 			justify-content: center; 
 			color: #063573;
 		}
+		button {
+	background-color: green;
+	color: #fff;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 5px;
+	font-size: 16px;
+	cursor: pointer;
+	transition: background-color 0.3s;
+	}
 	</style>
 </head>
 <body>
@@ -141,14 +151,21 @@
 					<th></th>
 				</tr>
 				{% for event in Nonevents %}
-				<tr>
-					<td>{{ event.name }}</td>
-					<td>{{ event.date }}</td>
-					<td>{{ event.description }}</td>
-					<td>{{ event.point_value }}</td>
-					<td><button id="ADD">Request Event </button></td>
-				</tr>
-				{% endfor %}
+    <tr>
+        <td>{{ event.name }}</td>
+        <td>{{ event.date }}</td>
+        <td>{{ event.description }}</td>
+        <td>{{ event.point_value }}</td>
+        <td>
+            <form method="post" action="{% url 'bear:requestEvent' %}">
+                {% csrf_token %}
+                <input type="hidden" name="event_id" value="{{ event.id }}">
+				<input type="hidden" name="user_id" value="{{ user.id }}">
+                <button type="submit">Request Event</button>
+            </form>
+        </td>
+    </tr>
+{% endfor %}
 			</table>
 		</div>
 	</div>

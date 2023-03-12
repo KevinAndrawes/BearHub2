@@ -166,3 +166,20 @@ def NewEvent(request):
         return JsonResponse({'success': True})
     else:
         return JsonResponse({'success': False, 'error': 'Invalid request method'})
+def requestEvent(request):
+    if request.method == 'POST':
+        event_id = request.POST.get('event_id')
+        student_id = request.POST.get('user_id')
+        print(event_id)
+        print(student_id)
+        event= Event.objects.get(id=event_id)
+        student= Student.objects.get(id=student_id)
+        # Add the event to the student's events
+        student.event.add(event)
+        
+        # add event to user's requests (you'll need to define this logic yourself)
+        return StudentPage(request,student_id)
+
+    # if the request is not a POST request, render the events list template
+    
+    return JsonResponse({'success': False, 'error': 'Get request'})

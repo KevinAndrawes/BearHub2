@@ -12,6 +12,7 @@ path('SignUp',views.SignUp,name="signUp"),
 path('AdminLogIn',views.adminLogIn,name="adminLogIn"),
 path('AdminPage/<int:user_id>/',views.AdminPage,name="adpage"),
 path('UpdateValues', views.Update , name="updater"),
-path('NewEvent', views.NewEvent , name="NewEvent")
+path('NewEvent', views.NewEvent , name="NewEvent"),
+path('request_event/', views.requestEvent, name='requestEvent'),
 
 ]
