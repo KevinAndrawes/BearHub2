@@ -142,7 +142,7 @@
 				<th>Date</th>
 				<th>Description</th>
 				<th>Point Values</th>
-				<th></th>
+				<th><button class="add-event-btn">+</button></th>
 			</tr>
 			{% for event in events %}
 			<tr>
@@ -153,6 +153,7 @@
 				<td><button class="edit-value-btn">Save Values</button></td>
 			</tr>
 			{% endfor %}
+			
 		</table>
 	</div>
 	<script>
@@ -200,6 +201,72 @@
   });
 });
 
-		</script>
+function getNewValues() {
+  let values = [];
+  let rows = document.querySelectorAll('#event-table tr');
+  let row = rows[rows.length-1];
+  console.log(rows[rows.length-1]);
+  console.log(typeof row[row.length-1])
+
+  let nameInput = row.querySelector('#eventname input');
+  console.log(nameInput)
+  let name = nameInput ? nameInput.value : '';
+  let dateInput = row.querySelector('#date input');
+  let date = dateInput ? dateInput.value : '';
+  let descriptionInput = row.querySelector('#description input');
+  let description = descriptionInput ? descriptionInput.value : '';
+  let pointInput = row.querySelector('#points input');
+  let point_value = pointInput ? pointInput.value : '';
+  values.push({
+    name: name,
+    date: date,
+    description: description,
+    point_value: point_value
+  });
+
+  return values;
+}
+
+// get the table element and the button
+var table = document.querySelector("table");
+var addBtn = table.querySelector(".add-event-btn");
+
+// add event listener to the button
+addBtn.addEventListener("click", function() {
+  // create a new row
+  var row = table.insertRow(table.rows.length);
+
+  // add cells to the row
+  var cells = [row.insertCell(),row.insertCell(),row.insertCell(),row.insertCell(),row.insertCell()];
+
+  // add input fields to the cells
+  cells[0].innerHTML = '<td id="eventname"><input type="text" class = "eventname" value=" "></td>';
+  console.log(cells[0].value);
+  cells[1].innerHTML = '<td id="date"><input type="text" class = "date" value=" "></td>';
+  cells[2].innerHTML = '<td id="description"><input type="text" class = "description" value =  " "></td>';
+  cells[3].innerHTML = '<td id="points"><input type="text"class = "points"value =" "></td>';
+  cells[4].innerHTML = '<button class="save-value-btn">Save Values</button>';
+
+  var saveNewValue = table.querySelector(".save-value-btn")
+  saveNewValue.addEventListener("click", function() {
+    let values = getNewValues();
+    console.log(values);
+    fetch('{% url "bear:NewEvent" %}', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': '{{ csrf_token }}'
+      },
+      body: JSON.stringify(values)
+    })
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error(error));
+  });
+});
+
+	
+	
+</script>
 </body>
 </html>

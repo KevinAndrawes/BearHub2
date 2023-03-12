@@ -142,3 +142,27 @@ def Update(request):
         return JsonResponse({'success': True})
     else:
         return JsonResponse({'success': False, 'error': 'Invalid request method'})
+def NewEvent(request):
+
+    if request.method == 'POST':
+        values = json.loads(request.body)
+        
+        for value in values:
+            # update the event with the specified values
+            # (assuming you have an Event model with name, date, description, and point_value fields)
+            
+            description = value['description']
+            point_value = value['point_value']
+            name=value['name']
+            date=value['date']
+            event = Event.objects.create(
+                description=description,
+                point_value=value,
+                name=name,
+                date=date,
+            )    
+            event.save()
+
+        return JsonResponse({'success': True})
+    else:
+        return JsonResponse({'success': False, 'error': 'Invalid request method'})
