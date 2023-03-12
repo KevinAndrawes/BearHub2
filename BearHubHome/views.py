@@ -157,7 +157,7 @@ def NewEvent(request):
             date=value['date']
             event = Event.objects.create(
                 description=description,
-                point_value=value,
+                point_value=point_value,
                 name=name,
                 date=date,
             )    

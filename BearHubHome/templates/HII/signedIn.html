@@ -138,6 +138,7 @@
 					<th>Date</th>
 					<th>Description</th>
 					<th>Point Request</th>
+					<th></th>
 				</tr>
 				{% for event in Nonevents %}
 				<tr>
@@ -145,6 +146,7 @@
 					<td>{{ event.date }}</td>
 					<td>{{ event.description }}</td>
 					<td>{{ event.point_value }}</td>
+					<td><button id="ADD">Request Event </button></td>
 				</tr>
 				{% endfor %}
 			</table>
