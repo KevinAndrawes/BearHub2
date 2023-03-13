@@ -170,10 +170,6 @@ color: white;
 .topnav a.split {
 float: left;
 }
-label {
-display: block;
-margin-bottom: 10px;
-}
 .errorlist {
 display: none;
 }
