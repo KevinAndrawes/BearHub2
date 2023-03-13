@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django import forms
 from django.urls import reverse
-from BearHubHome.models import Student, Event, AdminUser
+from BearHubHome.models import Student, Event, AdminUser, EventRequest
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 import json
@@ -122,7 +122,8 @@ def AdminPage(request, user_id):
     try:
         user = AdminUser.objects.get(pk=user_id)
         events = Event.objects.all()
-        return render(request, "HII/AdminPage.html", {"user": user, "events": events})
+        eventRequests = EventRequest.objects.all()
+        return render(request, "HII/AdminPage.html", {"user": user, "events": events,"eventRequests":eventRequests})
     except AdminUser.DoesNotExist:
         return HttpResponseRedirect(reverse("bear:adminLogIn"))
 def Update(request):
@@ -173,11 +174,15 @@ def requestEvent(request):
         student_id = request.POST.get('user_id')
         print(event_id)
         print(student_id)
-        event= Event.objects.get(id=event_id)
-        student= Student.objects.get(id=student_id)
+        Event1= Event.objects.get(id=event_id)
+        Student1= Student.objects.get(id=student_id)
         # Add the event to the student's events
-        student.event.add(event)
-        
+        Student1.event.add(Event1)
+        newRequest = EventRequest.objects.create(
+            student=Student1,
+            Event= Event1
+        )
+        newRequest.save()
         # add event to user's requests (you'll need to define this logic yourself)
         return StudentPage(request,student_id)
 

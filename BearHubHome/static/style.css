@@ -178,3 +178,7 @@ color: white;
 .topnav a.split {
 float: left;
 }
+.Accept{
+    color: green;
+    padding: 20px;
+}

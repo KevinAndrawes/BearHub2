@@ -16,3 +16,6 @@ class AdminUser(models.Model):
     First_name= models.CharField(max_length=64)
     Last_name= models.CharField(max_length=64)
     password= models.CharField(max_length=64)
+class EventRequest(models.Model):
+    Event=models.ForeignKey(Event,on_delete=models.CASCADE,related_name="Event")
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name="requests")
