@@ -143,7 +143,7 @@ def Update(request):
     else:
         return JsonResponse({'success': False, 'error': 'Invalid request method'})
 def NewEvent(request):
-
+    # 
     if request.method == 'POST':
         values = json.loads(request.body)
         
@@ -167,6 +167,7 @@ def NewEvent(request):
     else:
         return JsonResponse({'success': False, 'error': 'Invalid request method'})
 def requestEvent(request):
+    # Allows Student to request for points if student attended the event
     if request.method == 'POST':
         event_id = request.POST.get('event_id')
         student_id = request.POST.get('user_id')

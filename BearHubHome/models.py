@@ -1,4 +1,5 @@
 from django.db import models
+# Creation of edittable class types
 class Student(models.Model):
     First_name = models.CharField(max_length=64)
     Last_name = models.CharField(max_length=64)
