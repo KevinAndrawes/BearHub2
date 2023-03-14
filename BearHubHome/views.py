@@ -167,6 +167,8 @@ def NewEvent(request):
         return JsonResponse({'success': True})
     else:
         return JsonResponse({'success': False, 'error': 'Invalid request method'})
+from django.http import JsonResponse
+
 def requestEvent(request):
     # Allows Student to request for points if student attended the event
     if request.method == 'POST':
@@ -174,18 +176,32 @@ def requestEvent(request):
         student_id = request.POST.get('user_id')
         print(event_id)
         print(student_id)
-        Event1= Event.objects.get(id=event_id)
-        Student1= Student.objects.get(id=student_id)
+        Event1 = Event.objects.get(id=event_id)
+        Student1 = Student.objects.get(id=student_id)
         # Add the event to the student's events
         Student1.event.add(Event1)
+        existing_request = EventRequest.objects.filter(student=Student1, Event=Event1).exists()
+        if existing_request:
+            return StudentPage(request,student_id)
         newRequest = EventRequest.objects.create(
             student=Student1,
-            Event= Event1
+            Event=Event1
         )
         newRequest.save()
-        # add event to user's requests (you'll need to define this logic yourself)
         return StudentPage(request,student_id)
+    # if the request is not a POST request, return an error response
+    return StudentPage(request,student_id)
 
-    # if the request is not a POST request, render the events list template
-    
-    return JsonResponse({'success': False, 'error': 'Get request'})
+
+def accept_request(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        request_id = data.get('requestId')
+        event_request = EventRequest.objects.get(id=request_id)
+        student = event_request.student
+        event = event_request.Event
+        student.points += event.point_value
+        student.save()
+        event_request.delete()
+        return JsonResponse({'success': True})
+    return JsonResponse({'success': False})

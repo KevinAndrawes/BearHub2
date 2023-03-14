@@ -14,5 +14,6 @@ path('AdminPage/<int:user_id>/',views.AdminPage,name="adpage"),
 path('UpdateValues', views.Update , name="updater"),
 path('NewEvent', views.NewEvent , name="NewEvent"),
 path('request_event/', views.requestEvent, name='requestEvent'),
+path('accept_request', views.accept_request, name='accept_request'),
 
 ]
