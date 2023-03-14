@@ -197,11 +197,16 @@ def accept_request(request):
     if request.method == 'POST':
         data = json.loads(request.body)
         request_id = data.get('requestId')
+        action = data.get('action')
         event_request = EventRequest.objects.get(id=request_id)
         student = event_request.student
         event = event_request.Event
-        student.points += event.point_value
-        student.save()
-        event_request.delete()
-        return JsonResponse({'success': True})
+        if action == 'accept':
+            student.points += event.point_value
+            student.save()
+            event_request.delete()
+            return JsonResponse({'success': True})
+        elif action == 'decline':
+            event_request.delete()
+            return JsonResponse({'success': True})
     return JsonResponse({'success': False})

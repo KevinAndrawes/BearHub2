@@ -53,8 +53,8 @@
 				<td >{{ event.Event.name }}</td>
 				<td >{{ event.Event.point_value }}</td>
 				<td>
-					<button class="Accept" data-request-id="{{ event.id }}" style="background-color: green; color: white; border: none; padding: 8px 16px; text-align: center; text-decoration: none; display: inline-block; font-size: 14px; margin: 4px 2px; cursor: pointer;">Accept</button>
-					<button class="Decline"data-request-id="{{ event.id }}" style="background-color: red; color: white; border: none; padding: 8px 16px; text-align: center; text-decoration: none; display: inline-block; font-size: 14px; margin: 4px 2px; cursor: pointer;">Decline</button>
+					<button class="action-btn" data-request-id="{{ event.id }}" data-action="accept" style="background-color: green; color: white; border: none; padding: 8px 16px; text-align: center; text-decoration: none; display: inline-block; font-size: 14px; margin: 4px 2px; cursor: pointer;">Accept</button>
+					<button class="action-btn" data-request-id="{{ event.id }}" data-action="decline" style="background-color: red; color: white; border: none; padding: 8px 16px; text-align: center; text-decoration: none; display: inline-block; font-size: 14px; margin: 4px 2px; cursor: pointer;">Decline</button>
 				  </td>
 				  
 			</tr>
@@ -172,23 +172,24 @@ cells[4].innerHTML = '<button class="save-value-btn">Save Values</button>';
 	
 </script>
 <script>
-	document.querySelectorAll('.Accept').forEach((button) => {
-	  button.addEventListener('click', (event) => {
-		const requestId = button.dataset.requestId;
-		fetch('{% url "bear:accept_request" %}', {
-		  method: 'POST',
-		  headers: {
-			'Content-Type': 'application/json',
-			'X-CSRFToken': '{{ csrf_token }}',
-		  },
-		  body: JSON.stringify({ requestId }),
-		}).then(() => {
-		  const row = document.querySelector(`[data-request-id="${requestId}"]`);
-		  row.remove();
-		  location.reload(); // Refresh the page
-		});
-	  });
-	});
+	document.querySelectorAll('.action-btn').forEach((button) => {
+  button.addEventListener('click', (event) => {
+    const requestId = button.dataset.requestId;
+    const action = button.dataset.action;
+    fetch('{% url "bear:accept_request" %}', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': '{{ csrf_token }}',
+      },
+      body: JSON.stringify({ requestId, action }),
+    }).then(() => {
+      const row = document.querySelector(`[data-request-id="${requestId}"]`);
+      row.remove();
+      location.reload(); // Refresh the page
+    });
+  });
+});
 	</script>
 </body>
 </html>
