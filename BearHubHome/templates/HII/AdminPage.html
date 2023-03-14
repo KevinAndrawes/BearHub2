@@ -28,7 +28,9 @@
 			<tr>
 				<td id="eventname"><input type="text" class = "eventname" value= "{{ event.name }}"></td>
 				<td id="date"><input type="text" class = "date" value= "{{ event.date }}"></td>
-				<td id="description"><input type="text" class = "description" value= "{{ event.description}}"></td>
+				<td id="description">
+					<textarea class="description" maxlength="1">{{ event.description }}</textarea>
+				</td>
 				<td id="points"><input type="text"class = "points" value= "{{ event.point_value }}"></td>
 				<td><button class="edit-value-btn">Save Values</button></td>
 			</tr>
@@ -53,8 +55,8 @@
 				<td >{{ event.Event.name }}</td>
 				<td >{{ event.Event.point_value }}</td>
 				<td>
-					<button class="action-btn" data-request-id="{{ event.id }}" data-action="accept" style="background-color: green; color: white; border: none; padding: 8px 16px; text-align: center; text-decoration: none; display: inline-block; font-size: 14px; margin: 4px 2px; cursor: pointer;">Accept</button>
-					<button class="action-btn" data-request-id="{{ event.id }}" data-action="decline" style="background-color: red; color: white; border: none; padding: 8px 16px; text-align: center; text-decoration: none; display: inline-block; font-size: 14px; margin: 4px 2px; cursor: pointer;">Decline</button>
+					<button class="action-btn" data-request-id="{{ event.id }}" data-action="accept" style="background-color: green;">Accept</button>
+					<button class="action-btn" data-request-id="{{ event.id }}" data-action="decline" style="background-color: red;">Decline</button>
 				  </td>
 				  
 			</tr>
@@ -72,7 +74,7 @@
 			let name = nameInput ? nameInput.value : '';
 			let dateInput = row.querySelector('#date input');
 			let date = dateInput ? dateInput.value : '';
-			let descriptionInput = row.querySelector('#description input');
+			let descriptionInput = row.querySelector('#description textarea');
 			let description = descriptionInput ? descriptionInput.value : '';
 			let pointInput = row.querySelector('#points input');
 			let point_value = pointInput ? pointInput.value : '';

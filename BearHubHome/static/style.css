@@ -84,7 +84,16 @@ box-sizing: border-box;
 margin-bottom: 20px;
 }
 .description {
-width: 400px;
+    padding: 10px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    color: #333;
+    background-color: #fff;
 }
 h1, p {
 text-align: center;
@@ -178,7 +187,14 @@ color: white;
 .topnav a.split {
 float: left;
 }
-.Accept{
-    color: green;
-    padding: 20px;
+.action-btn{
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 4px 2px;
+    cursor: pointer;
 }
