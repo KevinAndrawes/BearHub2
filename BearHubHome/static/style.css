@@ -16,6 +16,7 @@ h1 {
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     border: 3px solid #fe914c;
+    display: inline-block;
 }
 .containera {
     display: inline-block;
@@ -32,6 +33,7 @@ h1 {
     padding: 20px;
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    display: inline-block;
 }
 table {
     border-collapse: collapse;
@@ -53,10 +55,6 @@ th {
 td {
     background-color: #fff;
     border: 1px solid #ccc;
-}
-tr:nth-child(even) {
-    background-color: #f5f5f5;
-    color: #04AA6D;
 }
 .table-title{
     justify-content: center; 
@@ -197,4 +195,34 @@ float: left;
     font-size: 14px;
     margin: 4px 2px;
     cursor: pointer;
+}
+#infoWindow {
+    display: block;
+    position: absolute;
+    top: 30px;
+    right: 10px;
+    transform: translateX(-50%);
+    background-color: #fff;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border: 3px solid #fe914c;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+#infoWindow.show {
+    opacity: 1;
+}
+button.b {
+float: right;
+color: #f2f2f2;
+background-color: #333;
+text-align: center;
+padding: 14px 16px;
+text-decoration: none;
+font-size: 17px;
+border-radius: 0px;
+}
+button.b:hover {
+background-color: #ddd;
+color: black;
 }

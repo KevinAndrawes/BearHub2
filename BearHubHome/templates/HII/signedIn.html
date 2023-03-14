@@ -9,16 +9,17 @@
 </head>
 <body>
 	<div class="topnav">
+		<button class="b" onmouseover="showInfo()">{{ user.First_name.capitalize }} {{ user.Last_name.capitalize|first }}</button>
+		<a href="{% url 'bear:report' %}">Report</a>
+	</div>
+	<div id="infoWindow">
+		<h2>Current points: {{ user.points }}<br>Grade Level: {{ user.grade_level }}</h2>
 	</div>
 	<header>
 		<h1>BearHub</h1>
 	</header>
 	<div class="container">
 		<h2>Hello, {{ user.First_name.capitalize }}</h2>
-        <div class="far-right"> 
-            <h2>Current points: {{ user.points }}<br>
-                Grade Level: {{ user.grade_level }}</h2>
-        </div>
 		<div class="containera">
 			<h2 class="table-title">My Requests</h2>
 			<table>
@@ -65,5 +66,6 @@
 			</table>
 		</div>
 	</div>
+	<script src="{% static 'scripts.js' %}"></script>
 </body>
 </html>

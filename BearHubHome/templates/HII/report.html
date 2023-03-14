@@ -1,0 +1,118 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Report</title>
+        <link href="{% static 'style.css' %}" rel="stylesheet">
+    </head>
+    <body>
+        <div class="topnav">
+        <a href="{% url 'bear:adminLogIn' %}">Admin Log In</a>
+        <a href="{% url 'bear:LogIn' %}">Log In</a>
+        <a href="{% url 'bear:signUp' %}">Sign Up</a>
+        </div>
+        <header>
+        <h1>BearHub Report</h1>
+        </header>
+        <div class="container">
+            <div class="containera" style="float: left; text-align: center;">
+                <h2>Top students</h2>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Points</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for user in users|slice:":10" %}
+                        <tr>
+                        <td>{{ user.First_name }}<br>{{ user.Last_name }}</td>
+                        <td>{{ user.points }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="containera" style="float: left;">
+                <div class="containera" style="float: left; text-align: center;">
+                    <h2>Top students in 9th grade</h2>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Points</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for user in users9 %}
+                            <tr>
+                            <td>{{ user.First_name }}<br>{{ user.Last_name }}</td>
+                            <td>{{ user.points }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="containera" style="float: left; text-align: center;">
+                    <h2>Top students in 10th grade</h2>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Points</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for user in users10 %}
+                            <tr>
+                            <td>{{ user.First_name }}<br>{{ user.Last_name }}</td>
+                            <td>{{ user.points }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="containera" style="float: left; text-align: center;">
+                    <h2>Top students in 11th grade</h2>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Points</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for user in users11 %}
+                            <tr>
+                            <td>{{ user.First_name }}<br>{{ user.Last_name }}</td>
+                            <td>{{ user.points }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="containera" style="float: left; text-align: center;">
+                    <h2>Top students in 12th grade</h2>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Points</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for user in users12 %}
+                            <tr>
+                            <td>{{ user.First_name }}<br>{{ user.Last_name }}</td>
+                            <td>{{ user.points }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

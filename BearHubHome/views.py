@@ -210,3 +210,11 @@ def accept_request(request):
             event_request.delete()
             return JsonResponse({'success': True})
     return JsonResponse({'success': False})
+
+def report(request):
+    users = Student.objects.order_by('-points')
+    users9 = Student.objects.filter(grade_level=9).order_by('-points')
+    users10 = Student.objects.filter(grade_level=10).order_by('-points')
+    users11 = Student.objects.filter(grade_level=11).order_by('-points')
+    users12 = Student.objects.filter(grade_level=12).order_by('-points')
+    return render(request, "HII/report.html", {"users": users, "users9": users9, "users10": users10, "users11": users11, "users12": users12})
