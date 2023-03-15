@@ -217,4 +217,20 @@ def report(request):
     users10 = Student.objects.filter(grade_level=10).order_by('-points')
     users11 = Student.objects.filter(grade_level=11).order_by('-points')
     users12 = Student.objects.filter(grade_level=12).order_by('-points')
-    return render(request, "HII/report.html", {"users": users, "users9": users9, "users10": users10, "users11": users11, "users12": users12})
+    avg9 = 0
+    for user in users9:
+        avg9 += user.points
+    avg9 = round(avg9 / len(users9))
+    avg10 = 0
+    for user in users10:
+        avg10 += user.points
+    avg10 = round(avg10 / len(users10))
+    avg11 = 0
+    for user in users11:
+        avg11 += user.points
+    avg11 = round(avg11 / len(users11))
+    avg12 = 0
+    for user in users12:
+        avg12 += user.points
+    avg12 = round(avg12 / len(users12))
+    return render(request, "HII/report.html", {"users": users, "users9": users9, "users10": users10, "users11": users11, "users12": users12, "avg9": avg9, "avg10": avg10, "avg11": avg11, "avg12": avg12})

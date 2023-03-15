@@ -226,3 +226,7 @@ button.b:hover {
 background-color: #ddd;
 color: black;
 }
+#myChart {
+    width: 800px;
+    height: 400px;
+}
