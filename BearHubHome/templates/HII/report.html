@@ -5,6 +5,7 @@
         <meta charset="UTF-8">
         <title>Report</title>
         <link href="{% static 'style.css' %}" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     </head>
     <body>
         <div class="topnav">
@@ -15,104 +16,162 @@
         <header>
         <h1>BearHub Report</h1>
         </header>
-        <div class="container">
-            <div class="containera" style="float: left; text-align: center;">
-                <h2>Top students</h2>
-                <table>
-                    <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Points</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for user in users|slice:":10" %}
-                        <tr>
-                        <td>{{ user.First_name }}<br>{{ user.Last_name }}</td>
-                        <td>{{ user.points }}</td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-            <div class="containera" style="float: left;">
-                <div class="containera" style="float: left; text-align: center;">
-                    <h2>Top students in 9th grade</h2>
-                    <table>
-                        <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Points</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for user in users9 %}
-                            <tr>
-                            <td>{{ user.First_name }}<br>{{ user.Last_name }}</td>
-                            <td>{{ user.points }}</td>
-                            </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-                <div class="containera" style="float: left; text-align: center;">
-                    <h2>Top students in 10th grade</h2>
-                    <table>
-                        <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Points</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for user in users10 %}
-                            <tr>
-                            <td>{{ user.First_name }}<br>{{ user.Last_name }}</td>
-                            <td>{{ user.points }}</td>
-                            </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-                <div class="containera" style="float: left; text-align: center;">
-                    <h2>Top students in 11th grade</h2>
-                    <table>
-                        <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Points</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for user in users11 %}
-                            <tr>
-                            <td>{{ user.First_name }}<br>{{ user.Last_name }}</td>
-                            <td>{{ user.points }}</td>
-                            </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-                <div class="containera" style="float: left; text-align: center;">
-                    <h2>Top students in 12th grade</h2>
-                    <table>
-                        <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Points</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for user in users12 %}
-                            <tr>
-                            <td>{{ user.First_name }}<br>{{ user.Last_name }}</td>
-                            <td>{{ user.points }}</td>
-                            </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+        
+        <div class="container";>
+            <canvas id="myChart"></canvas>
         </div>
+            <div class="container">
+                <div class="containera" style="float: left; text-align: center;">
+                    <h2>Top students</h2>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Points</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for user in users|slice:":10" %}
+                            <tr>
+                            <td>{{ user.First_name }}<br>{{ user.Last_name }}</td>
+                            <td>{{ user.points }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="containera" style="float: left;">
+                    <div class="containera" style="float: left; text-align: center;">
+                        <h2>Top students in 9th grade</h2>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Points</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for user in users9 %}
+                                <tr>
+                                <td>{{ user.First_name }}<br>{{ user.Last_name }}</td>
+                                <td>{{ user.points }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="containera" style="float: left; text-align: center;">
+                        <h2>Top students in 10th grade</h2>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Points</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for user in users10 %}
+                                <tr>
+                                <td>{{ user.First_name }}<br>{{ user.Last_name }}</td>
+                                <td>{{ user.points }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="containera" style="float: left; text-align: center;">
+                        <h2>Top students in 11th grade</h2>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Points</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for user in users11 %}
+                                <tr>
+                                <td>{{ user.First_name }}<br>{{ user.Last_name }}</td>
+                                <td>{{ user.points }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="containera" style="float: left; text-align: center;">
+                        <h2>Top students in 12th grade</h2>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Points</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for user in users12 %}
+                                <tr>
+                                <td>{{ user.First_name }}<br>{{ user.Last_name }}</td>
+                                <td>{{ user.points }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        <script>
+		// Get the data from the Django view and pass it to the JavaScript file
+var users = "{{ users|safe }}";
+var avg9 = "{{ avg9|safe }}";
+var avg10 = "{{ avg10|safe }}";
+var avg11 = "{{ avg11|safe }}";
+var avg12 = "{{ avg12|safe }}";
+
+// Create an array of labels for the chart
+var labels = ["9th Grade", "10th Grade", "11th Grade", "12th Grade"];
+
+// Create an array of data for the chart
+var data = [avg9, avg10, avg11, avg12];
+
+// Create a function to generate the chart
+function generateChart() {
+    var ctx = document.getElementById("myChart").getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Number of Points per Grade',
+                data: data,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+}
+
+// Call the function to generate the chart
+generateChart();
+	    </script>
     </body>
 </html>
