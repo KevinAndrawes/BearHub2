@@ -98,6 +98,8 @@ def kevin(request):
     return HttpResponse("Hello Kevin")
 def index(request):
     return render(request,"HII/index.html")
+def help(request):
+    return render(request,"HII/help.html")
 def adminLogIn(request):
         if request.method == "POST":
             form = LogInForm(request.POST)
