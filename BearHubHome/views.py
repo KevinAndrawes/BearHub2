@@ -18,6 +18,7 @@ class SignUpForm(forms.Form):
     lastName = forms.CharField(label="Last Name")
     id = forms.CharField(label="School ID")
     password = forms.CharField(label="Password", widget=forms.PasswordInput())
+    email = forms.CharField(label="Email Adress")
     CHOICES = [
         ('9', '9th grade'),
         ('10', '10th grade'),
@@ -25,7 +26,7 @@ class SignUpForm(forms.Form):
         ('12', '12th grade'),
     ]
     Grade_level = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect,label="Grade Level:")
-    Email = forms.EmailField(label="Email Adress")
+    
 def LogIn(request):
     SignedIn = False
     if request.method == "POST":

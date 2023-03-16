@@ -8,17 +8,14 @@
   </head>
   <body>
     <div class="topnav">
+      <img src="{{ '/static/png/only-logo.png' }}" alt="logo" style="width:63px;height:34px; padding: 4px;">
       <a href="{% url 'bear:adminLogIn' %}">Admin Log In</a>
       <a href="{% url 'bear:LogIn' %}">Log In</a>
       <a href="{% url 'bear:signUp' %}">Sign Up</a>
     </div>
-    <header>
-      <h1>BearHub</h1>
+    <header style="background-color:#444;">
+      <img src="{{ '/static/png/logo-no-background.png' }}" alt="logo" style="width:1000px; height:151px; padding:4px;">
       <p>The place for students to connect and collaborate!</p>
     </header>
-    <button class="fancy" style="margin-top: 100px;"onclick=window.location.href="{% url 'bear:LogIn' %}";>
-      Log In
-    </button>
-    <a href="{% url 'bear:signUp' %}" style="text-align: center; display: block;">click here to sign up</a>
   </body>
 </html>

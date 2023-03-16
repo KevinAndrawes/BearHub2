@@ -73,14 +73,6 @@ transition: background-color 0.3s;
 button:hover {
 background-color: #3961f0;
 }
-input[type=text] {
-padding: 10px;
-width: 100%;
-border: 1px solid #ccc;
-border-radius: 5px;
-box-sizing: border-box;
-margin-bottom: 20px;
-}
 .description {
     padding: 10px;
     width: 100%;
@@ -157,7 +149,7 @@ text-align: center;
 header {
 padding: 60px;
 text-align: center;
-background: #063573;
+background-color: #444;
 color: white;
 font-size: 30px;
 }
