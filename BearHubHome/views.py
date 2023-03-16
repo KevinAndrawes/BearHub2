@@ -2,11 +2,10 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django import forms
 from django.urls import reverse
-from BearHubHome.models import Student, Event, AdminUser, EventRequest
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import get_object_or_404
+from BearHubHome.models import Student, Event, AdminUser, EventRequest, Reward
 import json
 from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
 # Create your views here.
 class LogInForm(forms.Form):
     id = forms.CharField(label="ID")
@@ -57,8 +56,8 @@ def StudentPage(request, user_id):
         
         events = user.event.all()
         Nonevents = Event.objects.exclude(id__in=user.event.all().values_list('id', flat=True))
-
-        return render(request, "HII/signedIn.html", {"user": user,"events": events,"Nonevents":Nonevents})
+        Rewards = Reward.objects.all()
+        return render(request, "HII/signedIn.html", {"user": user,"events": events,"Nonevents":Nonevents, "Rewards":Rewards})
 
     except Student.DoesNotExist:
         return HttpResponseRedirect(reverse("bear:LogIn"))
@@ -174,8 +173,6 @@ def requestEvent(request):
     if request.method == 'POST':
         event_id = request.POST.get('event_id')
         student_id = request.POST.get('user_id')
-        print(event_id)
-        print(student_id)
         Event1 = Event.objects.get(id=event_id)
         Student1 = Student.objects.get(id=student_id)
         # Add the event to the student's events
@@ -210,7 +207,19 @@ def accept_request(request):
             event_request.delete()
             return JsonResponse({'success': True})
     return JsonResponse({'success': False})
-
+def claim_reward(request):
+    reward_id = request.POST.get('reward_id')
+    student_id = request.POST.get('student_id')
+    reward = get_object_or_404(Reward, id=reward_id)
+    student = get_object_or_404(Student,id=student_id)  # Assuming the logged in user is a student
+    if student.points >= reward.point_value:
+        student.points -= reward.point_value
+        student.save()
+        # Add code to handle giving the reward to the student
+    else:
+        # Handle case where student doesn't have enough points
+        pass
+    return StudentPage(request,student_id)
 def report(request):
     users = Student.objects.order_by('-points')
     users9 = Student.objects.filter(grade_level=9).order_by('-points')

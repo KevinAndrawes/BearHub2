@@ -15,5 +15,5 @@ path('NewEvent', views.NewEvent , name="NewEvent"),
 path('request_event/', views.requestEvent, name='requestEvent'),
 path('accept_request', views.accept_request, name='accept_request'),
 path('report',views.report,name="report"),
-
+path('claim_reward',views.claim_reward,name='claim_reward')
 ]

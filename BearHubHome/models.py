@@ -19,3 +19,6 @@ class AdminUser(models.Model):
 class EventRequest(models.Model):
     Event=models.ForeignKey(Event,on_delete=models.CASCADE,related_name="Event")
     student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name="requests")
+class Reward(models.Model):
+    Name = models.CharField(max_length=64)
+    point_value = models.IntegerField()

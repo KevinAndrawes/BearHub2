@@ -28,13 +28,13 @@
 					<th>Date</th>
 					<th>Point Request</th>
 				</tr>
-{% for event in events %}
+				{% for event in events %}
 				<tr>
 					<td>{{ event.name }}</td>
 					<td>{{ event.date }}</td>
 					<td>{{ event.point_value }}</td>
 				</tr>
-{% endfor %}
+				{% endfor %}
 			</table>
 		</div>
 		<div class="containera">
@@ -47,7 +47,7 @@
 					<th>Point Request</th>
 					<th></th>
 				</tr>
-{% for event in Nonevents %}
+				{% for event in Nonevents %}
 				<tr>
 					<td>{{ event.name }}</td>
 					<td>{{ event.date }}</td>
@@ -62,10 +62,33 @@
 						</form>
 					</td>
 				</tr>
-{% endfor %}
+				{% endfor %}
 			</table>
 		</div>
-	</div>
+		<div class="containera">
+			<h2 class="table-title">Prizes</h2>
+			<table>
+				<tr>
+					<th>Points Required</th>
+					<th>Prize</th>
+					<th>Claim Reward</th>
+				</tr>
+				{% for Reward in Rewards %}
+				<tr>
+					<td>{{ Reward.point_value }}</td>
+					<td>{{ Reward.Name }}</td>
+					<td>
+						<form method="POST" action="{% url 'bear:claim_reward' %}">
+							{% csrf_token %}
+							<input type="hidden" name="reward_id" value="{{ Reward.id }}">
+							<input type="hidden" name="student_id" value="{{ user.id }}">
+							<button type="submit">Claim</button>
+						</form>
+					</td>
+				</tr>
+				{% endfor %}
+			</table>
+		</div>
 	<script src="{% static 'scripts.js' %}"></script>
 </body>
 </html>
