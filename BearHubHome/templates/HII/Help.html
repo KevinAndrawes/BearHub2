@@ -1,0 +1,77 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>BearHub FAQ</title>
+    <style>
+      .question {
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 50px;
+      }
+
+      .answer {
+        display: none;
+        font-size: 30px;
+      }
+    </style>
+    <link href="{% static 'style.css' %}" rel="stylesheet">    
+    <script>
+      function toggleAnswer(id) {
+        var answer = document.getElementById(id);
+        if (answer.style.display === "none") {
+          answer.style.display = "block";
+        } else {
+          answer.style.display = "none";
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="topnav">
+        <a href="{% url 'bear:adminLogIn' %}">Admin Log In</a>
+        <a href="{% url 'bear:LogIn' %}">Log In</a>
+        <a href="{% url 'bear:signUp' %}">Sign Up</a>
+        <a href="{% url 'bear:help' %}"> Help </a>
+      </div>
+    <h1>BearHub FAQ</h1>
+    <div>
+      <p class="question" onclick="toggleAnswer('answer1')">How do I earn points for events that I have gone to?
+        ↓ </p>
+        <p class="answer" id="answer1">
+            As a student, you can earn points by attending various events. <br>
+            To do this, simply request points next to the event name on the home page.<br> 
+            The request is then sent to an administrator for approval or denial.<br>
+        </p> 
+    </div>
+    <div>
+      <p class="question" onclick="toggleAnswer('answer2')">Where do I see how many points I have? ↓</p>
+      <p class="answer" id="answer2">To see the amount of points that you currently have, you must hover over your name that is in the top right of the header tab.<br> 
+        From there, you will be able to see how many points the user currently has along with their grade level.</p>
+    </div>
+    <div>
+        <p class="question" onclick="toggleAnswer('answer3')"> (ADMIN) How do I give points to students who have attended events? ↓</p>
+        <p class="answer" id="answer3">
+            To give points to students who have attended school events, they must first request the points from their student account.<br> 
+            From there, you are able to approve or deny their request for the points.
+        </p>
+      </div>
+      <div>
+        <p class="question" onclick="toggleAnswer('answer4')">How do I know that my points request has been approved or denied?↓</p>
+        <p class="answer" id="answer4">When a Admin accepts or rejects your request, the email that you provided with, will receive an update of the result of the event that you requested;<br> 
+            either Accepted or denied.</p>
+      </div>
+      <div>
+        <p class="question" onclick="toggleAnswer('answer5')">How do I redeem prizes using my points? ↓</p>
+        <p class="answer" id="answer5">To see the prizes you are able to redeem with your points, you must go to your home page. On your home page there is a table that displays all of the prizes currently available.<br> 
+            When you click “Claim” on the prize, the points will be taken out of your account, and your request for the prize will be sent to school admin.
+        </p>
+      </div>
+      <div>
+        <p class="question" onclick="toggleAnswer('answer6')">How do I see my points report? ↓</p>
+        <p class="answer" id="answer6">To see the points report, you must click on the “Report” button next to your name on the header bar.<br> 
+            The button will take you to a page where you will be able to see a graph showing each grade level and the amount of points they earned, and a ranked listing of the entire school and each grade level and the students who have the top points for each category.
+</p>
+      </div>
+  </body>
+</html>
