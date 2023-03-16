@@ -6,6 +6,7 @@ from BearHubHome.models import Student, Event, AdminUser, EventRequest, Reward
 import json
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
+from django.core.mail import send_mail
 # Create your views here.
 class LogInForm(forms.Form):
     id = forms.CharField(label="ID")
@@ -24,6 +25,7 @@ class SignUpForm(forms.Form):
         ('12', '12th grade'),
     ]
     Grade_level = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect,label="Grade Level:")
+    Email = forms.EmailField(label="Email Adress")
 def LogIn(request):
     SignedIn = False
     if request.method == "POST":
@@ -72,6 +74,7 @@ def SignUp(request):
             firstname = form.cleaned_data.get("firstName")
             lastname = form.cleaned_data.get("lastName")
             Grade_level = form.cleaned_data.get("Grade_level")
+            email = form.cleaned_data.get("Email")
             if Student.objects.filter(pk=idIn).exists():
                 error_message = "This student ID is already taken. Please enter a different ID."
                 return render(request, "HII/signUp.html", {"form": form, "error_message": error_message})
@@ -82,7 +85,8 @@ def SignUp(request):
                 First_name=firstname,
                 Last_name=lastname,
                 grade_level= Grade_level,
-                points= 0
+                points= 0,
+                Email= email
             )
             # Redirect to the StudentPage with the new student's ID
             return HttpResponseRedirect(reverse("bear:stupage", args=[user.id]))
@@ -202,9 +206,21 @@ def accept_request(request):
             student.points += event.point_value
             student.save()
             event_request.delete()
+            # send email to student
+            subject = 'Event Request Accepted'
+            message = f'Your request to attend {event.name} has been accepted. You have been awarded {event.point_value} points.'
+            from_email = 'kevin11341981@outlook.com'
+            recipient_list = [student.Email]
+            send_mail(subject, message, from_email, recipient_list)
             return JsonResponse({'success': True})
         elif action == 'decline':
             event_request.delete()
+            # send email to student
+            subject = 'Event Request Declined'
+            message = f'Your request to attend {event.name} has been declined.'
+            from_email = 'BearHubConfirmation@gmail.com'
+            recipient_list = [student.Email]
+            send_mail(subject, message, from_email, recipient_list)
             return JsonResponse({'success': True})
     return JsonResponse({'success': False})
 def claim_reward(request):

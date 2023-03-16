@@ -6,6 +6,7 @@ class Student(models.Model):
     grade_level = models.IntegerField()
     password= models.CharField(max_length=64)
     points = models.IntegerField()
+    Email = models.EmailField()
 class Event(models.Model):
     name= models.CharField(max_length=64)
     date = models.DateField(max_length=24)
