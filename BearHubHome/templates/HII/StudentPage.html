@@ -1,59 +1,10 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8">
     <title>BearHub</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        background-color: #f9a03f;
-        color: #283c6d;
-      }
-      h1 {
-        text-align: center;
-        margin-top: 50px;
-      }
-      form {
-        width: 500px;
-        margin: 0 auto;
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0px 0px 10px #888888;
-        border: 2px solid #f9a03f;
-      }
-      label {
-        display: block;
-        margin-bottom: 10px;
-      }
-      .errorlist {
-        display: none;
-      }
-      input[type="text"], input[type="password"] {
-        padding: 10px;
-        width: 100%;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        box-sizing: border-box;
-        margin-bottom: 20px;
-      }
-      input[type="submit"] {
-        background-color: #283c6d;
-        color: #fff;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        margin-top: 20px;
-      }
-      input[type="submit"]:hover {
-        background-color: #1d2c52;
-      }
-      .alert-danger {
-        color: red;
-      }
-     
-    </style>
+    <link href="{% static 'instyle.css' %}" rel="stylesheet">
   </head>
   <body>
     <h1>Student Log In</h1>

@@ -1,10 +1,4 @@
 {% load static %}
-<style>
-    #myChart {
-        width: 800px;
-        height: 400px;
-    }
-    </style>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -15,20 +9,20 @@
     </head>
     <body>
         <div class="topnav">
+        <a href="{% url 'bear:help' %}">Help</a>
         <a href="{% url 'bear:adminLogIn' %}">Admin Log In</a>
         <a href="{% url 'bear:LogIn' %}">Log In</a>
         <a href="{% url 'bear:signUp' %}">Sign Up</a>
         </div>
         <header>
-        <h1>BearHub Report</h1>
+            <h1>BearHub Report</h1>
         </header>
-        
         <div class="container";>
             <canvas id="myChart"></canvas>
         </div>
             <div class="container">
                 <div class="containera" style="float: left; text-align: center;">
-                    <h2>Top students</h2>
+                    <h2 class="table-title">Top students</h2>
                     <table>
                         <thead>
                         <tr>
@@ -48,7 +42,7 @@
                 </div>
                 
                     <div class="containera" style="float: left; text-align: center;">
-                        <h2>Top students in 9th grade</h2>
+                        <h2 class="table-title">Top students in 9th grade</h2>
                         <table>
                             <thead>
                             <tr>
@@ -67,7 +61,7 @@
                         </table>
                     </div>
                     <div class="containera" style="float: left; text-align: center;">
-                        <h2>Top students in 10th grade</h2>
+                        <h2 class="table-title">Top students in 10th grade</h2>
                         <table>
                             <thead>
                             <tr>
@@ -86,7 +80,7 @@
                         </table>
                     </div>
                     <div class="containera" style="float: left; text-align: center;">
-                        <h2>Top students in 11th grade</h2>
+                        <h2 class="table-title">Top students in 11th grade</h2>
                         <table>
                             <thead>
                             <tr>
@@ -105,7 +99,7 @@
                         </table>
                     </div>
                     <div class="containera" style="float: left; text-align: center;">
-                        <h2>Top students in 12th grade</h2>
+                        <h2 class="table-title">Top students in 12th grade</h2>
                         <table>
                             <thead>
                             <tr>
@@ -123,6 +117,7 @@
                             </tbody>
                         </table>
                     </div>
+                
             </div>
         <script>
 		// Get the data from the Django view and pass it to the JavaScript file

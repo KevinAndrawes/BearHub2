@@ -14,7 +14,7 @@
 	<header>
 		<h1>BearHub Admin</h1>
 	</header>
-	<div class="containera">
+	<div class="containera" style="float: left;">
 		<h2 class="table-title">Events</h2>
 		<table id="event-table">
 			<tr>
@@ -39,30 +39,32 @@
 		</table>
 	</div>
 	<div>
-		<h2 >Event Requests</h2>
-		<table>
-			<tr>
-				<th>Student</th>
-				<th>Student ID</th>
-				<th>Event </th>
-				<th>Point Values</th>
-				<th></th>
-			</tr>
-			{% for event in eventRequests %}
-			<tr>
-				<td >{{ event.student.First_name.capitalize }} {{event.student.Last_name.capitalize }} </td>
-				<td >{{ event.student.id }} </td>
-				<td >{{ event.Event.name }}</td>
-				<td >{{ event.Event.point_value }}</td>
-				<td>
-					<button class="action-btn" data-request-id="{{ event.id }}" data-action="accept" style="background-color: green;">Accept</button>
-					<button class="action-btn" data-request-id="{{ event.id }}" data-action="decline" style="background-color: red;">Decline</button>
-				  </td>
-				  
-			</tr>
-			{% endfor %}
-			
-		</table>
+		<div class="containera" style="float: left;">
+			<h2 class="table-title">Event Requests</h2>
+			<table>
+				<tr>
+					<th>Student</th>
+					<th>Student ID</th>
+					<th>Event </th>
+					<th>Point Values</th>
+					<th></th>
+				</tr>
+				{% for event in eventRequests %}
+				<tr>
+					<td >{{ event.student.First_name.capitalize }} {{event.student.Last_name.capitalize }} </td>
+					<td >{{ event.student.id }} </td>
+					<td >{{ event.Event.name }}</td>
+					<td >{{ event.Event.point_value }}</td>
+					<td>
+						<button class="action-btn" data-request-id="{{ event.id }}" data-action="accept" style="background-color: green;">Accept</button>
+						<button class="action-btn" data-request-id="{{ event.id }}" data-action="decline" style="background-color: red;">Decline</button>
+					</td>
+					
+				</tr>
+				{% endfor %}
+				
+			</table>
+		</div>
 	</div>
 	<script>
 		function extractValues() {
