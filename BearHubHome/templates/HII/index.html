@@ -8,15 +8,23 @@
   </head>
   <body>
     <div class="topnav">
+      <a onclick="openNav()" class="menu">Menu</a>
       <a href="{% url 'bear:help' %}">Help</a>
       <img src="{% static 'png/only-logo-white.png' %}" alt="logo" style="width:63px;height:34px; padding: 4px;">
       <a href="{% url 'bear:adminLogIn' %}">Admin Log In</a>
       <a href="{% url 'bear:LogIn' %}">Log In</a>
       <a href="{% url 'bear:signUp' %}">Sign Up</a>
     </div>
+    <div id="mySidenav" class="sidenav">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+      <a href="{% url 'bear:index' %}">Home</a>
+      <a href="{% url 'bear:help' %}">Help</a>
+      <a href="{% url 'bear:report' %}">Report</a>
+    </div>
     <header>
       <img src="{% static 'png/logo-no-background.png' %}" alt="logo" style="width:1000px; height:151px; padding:4px;">
       <p>The place for students to connect and collaborate!</p>
     </header>
+    <script src="{% static 'scripts.js' %}"></script>
   </body>
 </html>

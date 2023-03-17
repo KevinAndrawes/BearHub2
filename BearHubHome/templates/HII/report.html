@@ -6,6 +6,7 @@
         <title>Report</title>
         <link href="{% static 'style.css' %}" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="{% static 'reportscripts.js' %}"></script>
     </head>
     <body>
         <div class="topnav">
@@ -17,6 +18,70 @@
         <header>
             <h1>BearHub Report</h1>
         </header>
+        <div class="tab">
+            <button class="tablinks" onclick="openCat(event, 'All')" id="defaultOpen">All</button>
+            <button class="tablinks" onclick="openCat(event, '9th')">9th</button>
+            <button class="tablinks" onclick="openCat(event, '10th')">10th</button>
+          </div>
+          
+          <div id="All" class="tabcontent">
+            <div class="containera" style="float: left; text-align: center;">
+                <h2 class="table-title">Top students</h2>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Place</th>
+                        <th>Name</th>
+                        <th>Grade</th>
+                        <th>Points</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users|slice:":10" %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ user.First_name }}<br>{{ user.Last_name }}</td>
+                            <td>{{ user.grade_level }}</td>
+                            <td>{{ user.points }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="containera" style="float: left; text-align: center;">
+                <h2 class="table-title">Top students</h2>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Place</th>
+                        <th>Name</th>
+                        <th>Grade</th>
+                        <th>Points</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for user in users|slice:"10:20" %}
+                        <tr>
+                        <td>{{ forloop.counter|add:10 }}</td>
+                        <td>{{ user.First_name }}<br>{{ user.Last_name }}</td>
+                        <td>{{ user.grade_level }}</td>
+                        <td>{{ user.points }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+          </div>
+          
+          <div id="9th" class="tabcontent">
+            <h3>Paris</h3>
+            <p>Paris is the capital of France.</p>
+          </div>
+          
+          <div id="10th" class="tabcontent">
+            <h3>Tokyo</h3>
+            <p>Tokyo is the capital of Japan.</p>
+          </div>
         <div class="container";>
             <canvas id="myChart"></canvas>
         </div>
@@ -172,6 +237,23 @@ function generateChart() {
 
 // Call the function to generate the chart
 generateChart();
-	    </script>
+
+function openCat(evt, catName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(catName).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();
+            </script>
     </body>
 </html>

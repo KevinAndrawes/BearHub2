@@ -12,8 +12,7 @@
       {% csrf_token %}
       {{ form.as_p }}
       <input type="submit" value="Submit">
-	  <a href="{% url 'bear:index' %}" style="float: right;display: block; margin-top: 35px;">Back</a>
-
+	    <a href="{% url 'bear:index' %}" style="float: right;display: block; margin-top: 35px;">Back</a>
     </form>
   </body>
 </html>

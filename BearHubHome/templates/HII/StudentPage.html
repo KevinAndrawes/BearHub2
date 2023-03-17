@@ -12,15 +12,13 @@
       {% csrf_token %}
       {{ form.as_p }}
       {% if error_message %}
-  <div class="alert-danger" style="display:block;">
-    <p>{{ error_message }}</p>
-  </div>
-  {% endif %}
+      <div class="alert-danger" style="display:block;">
+        <p>{{ error_message }}</p>
+      </div>
+      {% endif %}
       <input type="submit" value="Submit">
       <a href="{% url 'bear:index' %}" style="float: right;display: block; margin-top: 75px;">Back</a>
       <a href="{% url 'bear:signUp' %}" style="display: block; margin-top: 20px;">Need to Sign Up? Click Here</a>
     </form>
-
   </body>
-  
-  </html> 
+</html> 

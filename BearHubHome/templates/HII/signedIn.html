@@ -9,9 +9,14 @@
 </head>
 <body>
 	<div class="topnav">
-		<a href="{% url 'bear:help' %}">Help</a>
+		<a onclick="openNav()" class="menu">Menu</a>
 		<button class="b" onmouseover="showInfo()">{{ user.First_name.capitalize }} {{ user.Last_name.capitalize|first }}</button>
+	</div>
+	<div id="mySidenav" class="sidenav">
+		<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+		<a href="{% url 'bear:help' %}">Help</a>
 		<a href="{% url 'bear:report' %}">Report</a>
+		<a href="{% url 'bear:index' %}">Home</a>
 	</div>
 	<div id="infoWindow">
 		<h2>Current points: {{ user.points }}<br>Grade Level: {{ user.grade_level }}</h2>
