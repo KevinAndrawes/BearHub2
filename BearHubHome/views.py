@@ -261,4 +261,8 @@ def report(request):
     for user in users12:
         avg12 += user.points
     avg12 = round(avg12 / len(users12))
-    return render(request, "HII/report.html", {"users": users, "users9": users9, "users10": users10, "users11": users11, "users12": users12, "avg9": avg9, "avg10": avg10, "avg11": avg11, "avg12": avg12})
+    avg = 0
+    for user in users:
+        avg += user.points
+    avg = round(avg / len(users))
+    return render(request, "HII/report.html", {"users": users, "users9": users9, "users10": users10, "users11": users11, "users12": users12, "avg9": avg9, "avg10": avg10, "avg11": avg11, "avg12": avg12, "avg": avg})

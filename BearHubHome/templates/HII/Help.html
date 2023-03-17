@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel=icon href="{% static 'icon/only-logo.ico' %}" sizes=128x128 type=image/png>
     <title>BearHub FAQ</title>
     <link href="{% static 'style.css' %}" rel="stylesheet">    
     <script>
@@ -17,10 +18,11 @@
   </head>
   <body>
     <div class="topnav">
-        <a href="{% url 'bear:adminLogIn' %}">Admin Log In</a>
-        <a href="{% url 'bear:LogIn' %}">Log In</a>
-        <a href="{% url 'bear:signUp' %}">Sign Up</a>
-        <a href="{% url 'bear:help' %}"> Help </a>
+      <img src="{% static 'png/only-logo-white.png' %}" alt="logo" style="width:50px; height:40px; vertical-align: center; padding-left: 10px;">
+      <a href="{% url 'bear:adminLogIn' %}">Admin Log In</a>
+      <a href="{% url 'bear:LogIn' %}">Log In</a>
+      <a href="{% url 'bear:signUp' %}">Sign Up</a>
+      <a href="{% url 'bear:help' %}"> Help </a>
     </div>
     <header>
       <h1>BearHub FAQ</h1>

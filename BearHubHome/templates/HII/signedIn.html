@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<link rel=icon href="{% static 'icon/only-logo.ico' %}" sizes=128x128 type=image/png>
 	<title>BearHub</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +10,7 @@
 </head>
 <body>
 	<div class="topnav">
+		<img src="{% static 'png/only-logo-white.png' %}" alt="logo" style="width:50px; height:40px; vertical-align: center; padding-left: 10px;">
 		<a onclick="openNav()" class="menu">Menu</a>
 		<button class="b" onmouseover="showInfo()">{{ user.First_name.capitalize }} {{ user.Last_name.capitalize|first }}</button>
 	</div>
