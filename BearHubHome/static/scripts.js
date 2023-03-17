@@ -3,7 +3,7 @@ function showInfo() {
     infoWindow.classList.add("show");
     }
 
-    function hideInfo() {
+function hideInfo() {
     var infoWindow = document.getElementById("infoWindow");
     infoWindow.classList.remove("show");
     }

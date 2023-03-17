@@ -228,3 +228,12 @@ color: black;
     font-family: "bearhub-font";
     src: url('bearhub-font.ttf') format("truetype");
 }
+.question {
+font-weight: bold;
+cursor: pointer;
+font-size: 50px;
+}
+.answer {
+display: none;
+font-size: 30px;
+}

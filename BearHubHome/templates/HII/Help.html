@@ -3,18 +3,6 @@
 <html>
   <head>
     <title>BearHub FAQ</title>
-    <style>
-      .question {
-        font-weight: bold;
-        cursor: pointer;
-        font-size: 50px;
-      }
-
-      .answer {
-        display: none;
-        font-size: 30px;
-      }
-    </style>
     <link href="{% static 'style.css' %}" rel="stylesheet">    
     <script>
       function toggleAnswer(id) {
@@ -33,11 +21,12 @@
         <a href="{% url 'bear:LogIn' %}">Log In</a>
         <a href="{% url 'bear:signUp' %}">Sign Up</a>
         <a href="{% url 'bear:help' %}"> Help </a>
-      </div>
-    <h1>BearHub FAQ</h1>
+    </div>
+    <header>
+      <h1>BearHub FAQ</h1>
+    </header>
     <div>
-      <p class="question" onclick="toggleAnswer('answer1')">How do I earn points for events that I have gone to?
-        ↓ </p>
+      <p class="question" onclick="toggleAnswer('answer1')">How do I earn points for events that I have gone to? ↓</p>
         <p class="answer" id="answer1">
             As a student, you can earn points by attending various events. <br>
             To do this, simply request points next to the event name on the home page.<br> 
