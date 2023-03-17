@@ -210,7 +210,7 @@ def accept_request(request):
             student.points += event.point_value
             student.save()
             event_request.delete()
-            # send email to student
+            # send accept email to student
             subject = 'Event Request Accepted'
             from_email = 'BearHubConfirmation@gmail.com'
             recipient_list = [student.Email]
@@ -221,7 +221,7 @@ def accept_request(request):
             return JsonResponse({'success': True})
         elif action == 'decline':
             event_request.delete()
-            # send email to student
+            # send decline email to student
             subject = 'Event Request Declined'
             html_message = render_to_string('HII/eventEmailDec.html', {'student': student, 'event': event})
             from_email = 'BearHubConfirmation@gmail.com'
