@@ -11,6 +11,14 @@
 
 <body>
 	<div class="topnav">
+		<a onclick="openNav()" class="menu">Menu</a>
+		<button class="b" onmouseover="showInfo()">{{ user.First_name.capitalize }} {{ user.Last_name.capitalize|first }}</button>
+	</div>
+	<div id="mySidenav" class="sidenav">
+		<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+		<a href="{% url 'bear:help' %}">Help</a>
+		<a href="{% url 'bear:report' %}">Report</a>
+		<a href="{% url 'bear:index' %}">Logout <img class = "cimg" src="{% static 'png/logout.png' %}"></a>
 	</div>
 	<header>
 		<h1>BearHub Admin</h1>
@@ -196,5 +204,6 @@ cells[4].innerHTML = '<button class="save-value-btn">Save Values</button>';
   });
 });
 	</script>
+	<script src="{% static 'scripts.js' %}"></script>
 </body>
 </html>
