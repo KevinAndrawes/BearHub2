@@ -18,11 +18,16 @@
   </head>
   <body>
     <div class="topnav">
+      <a onclick="openNav()" class="menu">Menu</a>
       <img src="{% static 'png/only-logo-white.png' %}" alt="logo" style="width:50px; height:40px; vertical-align: center; padding-left: 10px;">
-      <a href="{% url 'bear:adminLogIn' %}">Admin Log In</a>
       <a href="{% url 'bear:LogIn' %}">Log In</a>
       <a href="{% url 'bear:signUp' %}">Sign Up</a>
-      <a href="{% url 'bear:help' %}"> Help </a>
+    </div>
+    <div id="mySidenav" class="sidenav">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+      <a href="{% url 'bear:index' %}">Home</a>
+      <a href="{% url 'bear:help' %}">Help</a>
+      <a href="{% url 'bear:report' %}">Report</a>
     </div>
     <header>
       <h1>BearHub FAQ</h1>
@@ -64,5 +69,6 @@
           The button will take you to a page where you will be able to see a graph showing each grade level and the amount of points they earned, and a ranked listing of the entire school and each grade level and the students who have the top points for each category.
       </p>
     </div>
+    <script src="{% static 'scripts.js' %}"></script>
   </body>
 </html>

@@ -18,7 +18,9 @@
       </div>
       {% endif %}
       <input type="submit" value="Submit">
-      <a href="{% url 'bear:index' %}" style="float: right;display: block; margin-top: 75px;">Back</a>
+      <a class="button" href="{% url 'bear:adminLogIn' %}" style="float: right;">Admin? Click Here</a>
+      <br>
+      <a href="{{request.META.HTTP_REFERER|escape}}" style="float: right; display: block; margin-top: 20px;">Back</a>
       <a href="{% url 'bear:signUp' %}" style="display: block; margin-top: 20px;">Need to Sign Up? Click Here</a>
     </form>
   </body>
