@@ -1,6 +1,12 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #063573;
+    background-image: linear-gradient(
+    90deg,
+    hsl(214deg 90% 24%) 0%,
+    hsl(243deg 37% 35%) 19%,
+    hsl(22deg 94% 63%) 81%,
+    hsl(31deg 94% 61%) 100%
+    );
 }
 h1 {
 color: #fff;
@@ -32,6 +38,7 @@ box-sizing: border-box;
 margin-bottom: 20px;
 }
 input[type="submit"], .button {
+text-decoration: none;
 font-size: 15px;
 background-color: #063573;
 color: #fff;
