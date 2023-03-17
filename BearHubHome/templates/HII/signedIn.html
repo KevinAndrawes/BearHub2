@@ -18,7 +18,7 @@
 		<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 		<a href="{% url 'bear:help' %}">Help</a>
 		<a href="{% url 'bear:report' %}">Report</a>
-		<a href="{% url 'bear:index' %}">Home</a>
+		<a href="{% url 'bear:index' %}">Logout <img class = "cimg" src="{% static 'png/logout.png' %}"></a>
 	</div>
 	<div id="infoWindow">
 		<h2>Current points: {{ user.points }}<br>Grade Level: {{ user.grade_level }}</h2>
@@ -32,9 +32,9 @@
 			<h2 class="table-title">My Requests</h2>
 			<table>
 				<tr>
-					<th>Event</th>
-					<th>Date</th>
-					<th>Point Request</th>
+					<th >Event</th>
+					<th >Date</th>
+					<th >Point Request</th>
 				</tr>
 				{% for event in events %}
 				<tr>
@@ -47,13 +47,13 @@
 		</div>
 		<div class="containera">
 			<h2 class="table-title">Available Events</h2>
-			<table>
+			<table class= "events">
 				<tr>
-					<th>Event</th>
-					<th>Date</th>
-					<th>Description</th>
-					<th>Point Request</th>
-					<th></th>
+					<th class =events>Event</th>
+					<th class =events>Date</th>
+					<th class =events>Description</th>
+					<th class =events>Point Request</th>
+					<th class =events></th>
 				</tr>
 				{% for event in Nonevents %}
 				<tr>
