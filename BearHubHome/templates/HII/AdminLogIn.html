@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+  <!--Website head with Favicon and links to external files-->
   <head>
     <link rel=icon href="{% static 'icon/only-logo.ico' %}" sizes=128x128 type=image/png>
     <meta charset="UTF-8">
@@ -8,19 +9,18 @@
     <link href="{% static 'instyle.css' %}" rel="stylesheet">
   </head>
   <body>
+    <!--Form from views.py for adminLogIn Form-->
     <h1>Admin Log In</h1>
     <form method="post">
       {% csrf_token %}
       {{ form.as_p }}
-      {% if error_message %}
-  <div class="alert-danger" style="display:block;">
-    <p>{{ error_message }}</p>
-  </div>
-  {% endif %}
-      <input type="submit" value="Submit">
-      <a href="{% url 'bear:index' %}" style="float: right;display: block; margin-top: 45px;">Back</a>
+      {% if error_message %}  <!--Display Error Message in case of error-->
+        <div class="alert-danger" style="display:block;">
+          <p>{{ error_message }}</p>
+        </div>
+      {% endif %}
+      <input type="submit" value="Submit">  <!--Submit button to submit form-->
+      <a href="{% url 'bear:index' %}" style="float: right;display: block; margin-top: 45px;">Back</a>  <!--Back Button-->
     </form>
-
   </body>
-  
-  </html> 
+</html> 

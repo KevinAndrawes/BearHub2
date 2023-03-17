@@ -76,7 +76,8 @@ background-color: #3961f0;
 }
 .description {
     padding: 10px;
-    width: 100%;
+    width: 200px;
+    max-width: 700px;
     border: 1px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box;
@@ -102,6 +103,22 @@ border: 2px solid #fe914c;
 label {
 display: block;
 margin-bottom: 10px;
+}
+input[type="date"] {
+    appearance: none;
+    -webkit-appearance: none;
+    font-family: "Helvetica", arial, sans-serif;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding:10px;
+    display: inline-block !important;
+    visibility: visible !important;
+    margin-bottom: 20px;
+}
+input[type="date"], focus {
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
 }
 input[type="text"], input[type="password"] {
 padding: 10px;

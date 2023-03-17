@@ -58,8 +58,8 @@ def StudentPage(request, user_id):
     try:
         user = Student.objects.get(pk=user_id)
         
-        events = user.event.all()
-        Nonevents = Event.objects.exclude(id__in=user.event.all().values_list('id', flat=True))
+        events = user.event.all().order_by('date')
+        Nonevents = Event.objects.exclude(id__in=user.event.all().values_list('id', flat=True)).order_by('date')
         Rewards = Reward.objects.all()
         return render(request, "HII/signedIn.html", {"user": user,"events": events,"Nonevents":Nonevents, "Rewards":Rewards})
 
@@ -128,20 +128,19 @@ def adminLogIn(request):
 def AdminPage(request, user_id):
     try:
         user = AdminUser.objects.get(pk=user_id)
-        events = Event.objects.all()
+        events = Event.objects.all().order_by('date')
         eventRequests = EventRequest.objects.all()
         return render(request, "HII/AdminPage.html", {"user": user, "events": events,"eventRequests":eventRequests})
     except AdminUser.DoesNotExist:
         return HttpResponseRedirect(reverse("bear:adminLogIn"))
 def Update(request):
-
     if request.method == 'POST':
         values = json.loads(request.body)
-        
         for value in values:
             # update the event with the specified values
             # (assuming you have an Event model with name, date, description, and point_value fields)
             event = Event.objects.get(name=value['name'])
+            event.date = value['date']
             event.description = value['description']
             event.point_value = value['point_value']
             event.name=value['name']
