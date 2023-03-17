@@ -7,6 +7,7 @@ import json
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.core.mail import send_mail
+from django.template.loader import render_to_string
 # Create your views here.
 class LogInForm(forms.Form):
     id = forms.CharField(label="ID")
@@ -211,19 +212,21 @@ def accept_request(request):
             event_request.delete()
             # send email to student
             subject = 'Event Request Accepted'
-            message = f'Your request to attend {event.name} has been accepted. You have been awarded {event.point_value} points.'
-            from_email = 'kevin11341981@outlook.com'
+            from_email = 'BearHubConfirmation@gmail.com'
             recipient_list = [student.Email]
-            send_mail(subject, message, from_email, recipient_list)
+            # Render the HTML email template
+            html_message = render_to_string('HII/eventEmail.html', {'student': student, 'event': event})
+                # Send the email
+            send_mail(subject, None, from_email, recipient_list, html_message=html_message)
             return JsonResponse({'success': True})
         elif action == 'decline':
             event_request.delete()
             # send email to student
             subject = 'Event Request Declined'
-            message = f'Your request to attend {event.name} has been declined.'
+            html_message = render_to_string('HII/eventEmailDec.html', {'student': student, 'event': event})
             from_email = 'BearHubConfirmation@gmail.com'
             recipient_list = [student.Email]
-            send_mail(subject, message, from_email, recipient_list)
+            send_mail(subject, None, from_email, recipient_list, html_message=html_message)
             return JsonResponse({'success': True})
     return JsonResponse({'success': False})
 def claim_reward(request):
@@ -234,6 +237,11 @@ def claim_reward(request):
     if student.points >= reward.point_value:
         student.points -= reward.point_value
         student.save()
+        subject = 'Reward'
+        html_message = render_to_string('HII/reward.html', {'student': student, 'Reward': reward})
+        from_email = 'BearHubConfirmation@gmail.com'
+        recipient_list = [student.Email]
+        send_mail(subject, None, from_email, recipient_list, html_message=html_message)
         # Add code to handle giving the reward to the student
     else:
         # Handle case where student doesn't have enough points
