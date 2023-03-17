@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+  <!--Website head with Favicon and links to external files-->
   <head>
     <link rel=icon href="{% static 'icon/only-logo.ico' %}" sizes=128x128 type=image/png>
     <meta charset="UTF-8">
@@ -8,20 +9,21 @@
     <link href="{% static 'instyle.css' %}" rel="stylesheet">
   </head>
   <body>
+    <!--Form from views.py for LogIn Form-->
     <h1>Student Log In</h1>
     <form method="post">
       {% csrf_token %}
       {{ form.as_p }}
-      {% if error_message %}
-      <div class="alert-danger" style="display:block;">
-        <p>{{ error_message }}</p>
-      </div>
+      {% if error_message %}<!--Display Error Message in case of error-->
+        <div class="alert-danger" style="display:block;">
+          <p>{{ error_message }}</p>
+        </div>
       {% endif %}
-      <input type="submit" value="Submit">
-      <a class="button" href="{% url 'bear:adminLogIn' %}" style="float: right;">Admin? Click Here</a>
+      <input type="submit" value="Submit"><!--Submit button to submit form-->
+      <a class="button" href="{% url 'bear:adminLogIn' %}" style="float: right;">Admin? Click Here</a><!--admin login page-->
       <br>
-      <a href="{{request.META.HTTP_REFERER|escape}}" style="float: right; display: block; margin-top: 20px;">Back</a>
-      <a href="{% url 'bear:signUp' %}" style="display: block; margin-top: 20px;">Need to Sign Up? Click Here</a>
+      <a href="{{request.META.HTTP_REFERER|escape}}" style="float: right; display: block; margin-top: 20px;">Back</a><!--Back Button-->
+      <a href="{% url 'bear:signUp' %}" style="display: block; margin-top: 20px;">Need to Sign Up? Click Here</a><!--signup page-->
     </form>
   </body>
 </html> 

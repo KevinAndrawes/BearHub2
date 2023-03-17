@@ -1,200 +1,221 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<link rel=icon href="{% static 'icon/only-logo.ico' %}" sizes=128x128 type=image/png>
-	<title>BearHub</title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link href="{% static 'style.css' %}" rel="stylesheet">
-</head>
-
-<body>
-	<div class="topnav">
-	</div>
-	<header>
-		<h1>BearHub Admin</h1>
-	</header>
-	<div class="containera" style="float: left;">
-		<h2 class="table-title">Events</h2>
-		<table id="event-table">
-			<tr>
-				<th>Event</th>
-				<th>Date</th>
-				<th>Description</th>
-				<th>Point Values</th>
-				<th><button class="add-event-btn">+</button></th>
-			</tr>
-			{% for event in events %}
-			<tr>
-				<td id="eventname"><input type="text" class = "eventname" value= "{{ event.name }}"></td>
-				<td id="date"><input type="text" class = "date" value= "{{ event.date }}"></td>
-				<td id="description">
-					<textarea class="description">{{ event.description }}</textarea>
-				</td>
-				<td id="points"><input type="text"class = "points" value= "{{ event.point_value }}"></td>
-				<td><button class="edit-value-btn">Save Values</button></td>
-			</tr>
-			{% endfor %}
-			
-		</table>
-	</div>
-	<div>
+	<!--Website head with Favicon and links to external files-->
+	<head>
+		<link rel=icon href="{% static 'icon/only-logo.ico' %}" sizes=128x128 type=image/png>
+		<title>BearHub</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link href="{% static 'style.css' %}" rel="stylesheet">
+	</head>
+	<body>
+		<!--Top navigation bar with logo, menu, and display of user's name-->
+		<div class="topnav">
+			<img src="{% static 'png/only-logo-white.png' %}" alt="logo" style="width:50px; height:40px; vertical-align: center; padding-left: 10px;">
+			<a onclick="openNav()" class="menu">Menu</a>
+			<button class="b" onmouseover="showInfo()">{{ user.First_name.capitalize }} {{ user.Last_name.capitalize|first }}</button>
+		</div>
+		<!--Side navigation bar opened from menu in topnav-->
+		<div id="mySidenav" class="sidenav">
+			<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+			<a href="{% url 'bear:help' %}">Help</a>
+			<a href="{% url 'bear:report' %}">Report</a>
+			<a href="{% url 'bear:index' %}">Logout <img class = "cimg" src="{% static 'png/logout.png' %}"></a>
+		</div>
+		<!--information display window from hovering over user's name-->
+		<div id="infoWindow">
+			<h2>Admin</h2>
+		</div>
+		<header>
+			<h1>BearHub Admin</h1><!--site header-->
+		</header>
+		<!--table showing list of customizable events-->
+		<div class="containera" style="float: left;">
+			<h2 class="table-title">Events</h2>
+			<table id="event-table">
+				<tr><!--table header with "add event" button-->
+					<th>Event</th>
+					<th>Date</th>
+					<th>Description</th>
+					<th>Point Values</th>
+					<th><button class="add-event-btn">+</button></th>
+				</tr>
+				{% for event in events %}<!--for loop for every existing event in database-->
+					<tr>
+						<td id="eventname"><input type="text" class = "eventname" value= "{{ event.name }}"></td>
+						<td id="date">
+							<input type="date"
+							value="{{ event.date|date:'Y-m-d' }}"
+							min="2023-01-01">
+						</td>
+						<td id="description">
+							<textarea class="description">{{ event.description }}</textarea>
+						</td>
+						<td id="points"><input type="text"class = "points" value= "{{ event.point_value }}"></td>
+						<td><button class="edit-value-btn">Save Values</button></td><!--save value button for editing events-->
+					</tr>
+				{% endfor %}
+			</table>
+		</div>
+		<!--table to show events where students requested events-->
 		<div class="containera" style="float: left;">
 			<h2 class="table-title">Event Requests</h2>
 			<table>
-				<tr>
+				<tr><!--table header-->
 					<th>Student</th>
 					<th>Student ID</th>
 					<th>Event </th>
 					<th>Point Values</th>
 					<th></th>
 				</tr>
-				{% for event in eventRequests %}
-				<tr>
-					<td >{{ event.student.First_name.capitalize }} {{event.student.Last_name.capitalize }} </td>
-					<td >{{ event.student.id }} </td>
-					<td >{{ event.Event.name }}</td>
-					<td >{{ event.Event.point_value }}</td>
-					<td>
-						<button class="action-btn" data-request-id="{{ event.id }}" data-action="accept" style="background-color: green;">Accept</button>
-						<button class="action-btn" data-request-id="{{ event.id }}" data-action="decline" style="background-color: red;">Decline</button>
-					</td>
-					
-				</tr>
+				{% for event in eventRequests %}<!--for loop for each requested event in database-->
+					<tr>
+						<td >{{ event.student.First_name.capitalize }} {{event.student.Last_name.capitalize }} </td>
+						<td >{{ event.student.id }} </td>
+						<td >{{ event.Event.name }}</td>
+						<td >{{ event.Event.point_value }}</td>
+						<!--accept/decline buttons-->
+						<td>
+							<button class="action-btn" data-request-id="{{ event.id }}" data-action="accept" style="background-color: green;">Accept</button>
+							<button class="action-btn" data-request-id="{{ event.id }}" data-action="decline" style="background-color: red;">Decline</button>
+						</td>
+					</tr>
 				{% endfor %}
-				
 			</table>
 		</div>
-	</div>
-	<script>
-		function extractValues() {
-		  let values = [];
-		  let rows = document.querySelectorAll('#event-table tr');
-		  for (let i = 1; i < rows.length; i++) {
-			let row = rows[i];
-			let nameInput = row.querySelector('#eventname input');
-			let name = nameInput ? nameInput.value : '';
-			let dateInput = row.querySelector('#date input');
-			let date = dateInput ? dateInput.value : '';
-			let descriptionInput = row.querySelector('#description textarea');
-			let description = descriptionInput ? descriptionInput.value : '';
-			let pointInput = row.querySelector('#points input');
-			let point_value = pointInput ? pointInput.value : '';
-			values.push({
-			  name: name,
-			  date: date,
-			  description: description,
-			  point_value: point_value
+		<!--javascript link/code-->
+		<script src="{% static 'scripts.js' %}"></script>
+		<script>
+			// This function extracts values from the form fields and returns them in an array
+			function extractValues() {
+				let values = [];
+				let rows = document.querySelectorAll('#event-table tr');
+				for (let i = 1; i < rows.length; i++) {
+					let row = rows[i];
+					let nameInput = row.querySelector('#eventname input');
+					let name = nameInput ? nameInput.value : '';
+					let dateInput = row.querySelector('#date input');
+					let date = dateInput ? dateInput.value : '';
+					let descriptionInput = row.querySelector('#description textarea');
+					let description = descriptionInput ? descriptionInput.value : '';
+					let pointInput = row.querySelector('#points input');
+					let point_value = pointInput ? pointInput.value : '';
+					// Push the values to the array as an object
+					values.push({
+						name: name,
+						date: date,
+						description: description,
+						point_value: point_value
+					});
+				}
+				return values;
+			}
+			// This code runs when the DOM is fully loaded
+			document.addEventListener('DOMContentLoaded', function() {
+				// Get all the buttons with class 'edit-value-btn'
+				let buttons = document.querySelectorAll('.edit-value-btn');
+				// Add a click event listener to each button
+				buttons.forEach(function(button) {
+					button.addEventListener('click', function() {
+						// Extract values from the form fields
+						let values = extractValues();
+						console.log(values);
+						// Send a POST request to the specified URL with the values as the body
+						fetch('{% url "bear:updater" %}', {
+							method: 'POST',
+							headers: {
+								'Content-Type': 'application/json',
+								'X-CSRFToken': '{{ csrf_token }}'
+							},
+							body: JSON.stringify(values)
+						})
+						.then(response => response.json())
+						.then(data => console.log(data))
+						.catch(error => console.error(error));
+					});
+				});
 			});
-		  }
-		  return values;
-		}
-		
-		document.addEventListener('DOMContentLoaded', function() {
-  let buttons = document.querySelectorAll('.edit-value-btn');
-  buttons.forEach(function(button) {
-    button.addEventListener('click', function() {
-      let values = extractValues();
-      console.log(values);
-      fetch('{% url "bear:updater" %}', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-CSRFToken': '{{ csrf_token }}'
-        },
-        body: JSON.stringify(values)
-      })
-      .then(response => response.json())
-      .then(data => console.log(data))
-      .catch(error => console.error(error));
-    });
-  });
-});
-
-function getNewValues() {
-  let values = [];
-  let rows = document.querySelectorAll('#event-table tr');
-			let row = rows[rows.length-1];
-			console.log(row)
-			let nameInput = row.querySelector('#eventname-input');
-			let name = nameInput ? nameInput.value : '';
-			let dateInput = row.querySelector('#date-input');
-			let date = dateInput ? dateInput.value : '';
-			let descriptionInput = row.querySelector('#description-input');
-			let description = descriptionInput ? descriptionInput.value : '';
-			let pointInput = row.querySelector('#points-input');
-			let point_value = pointInput ? pointInput.value : '';
-			values.push({
-			  name: name,
-			  date: date,
-			  description: description,
-			  point_value: point_value
+			// This function gets the values from the newly added row
+			function getNewValues() {
+				let values = [];
+				let rows = document.querySelectorAll('#event-table tr');
+				let row = rows[rows.length-1];
+				console.log(row)
+				let nameInput = row.querySelector('#eventname-input');
+				let name = nameInput ? nameInput.value : '';
+				let dateInput = row.querySelector('#date-input');
+				let date = dateInput ? dateInput.value : '';
+				let descriptionInput = row.querySelector('#description-input');
+				let description = descriptionInput ? descriptionInput.value : '';
+				let pointInput = row.querySelector('#points-input');
+				let point_value = pointInput ? pointInput.value : '';
+				// Push the values to the array as an object
+				values.push({
+					name: name,
+					date: date,
+					description: description,
+					point_value: point_value
+				});
+				return values;
+			}
+			// get the table element and the button
+			var table = document.querySelector("table");
+			var addBtn = table.querySelector(".add-event-btn");
+			// add event listener to the button
+			addBtn.addEventListener("click", function() {
+				// create a new row
+				var row = table.insertRow(table.rows.length);
+				// add cells to the row
+				var cells = [row.insertCell(),row.insertCell(),row.insertCell(),row.insertCell(),row.insertCell()];
+				// add input fields to the cells
+				cells[0].innerHTML = '<td id="eventname"><input type="text" id="eventname-input" class="eventname" value=""></td>';
+				cells[1].innerHTML = '<td id="date"><input type="text" id="date-input" class="date" value=""></td>';
+				cells[2].innerHTML = '<td id="description"><input type="text" id="description-input" class="description" value=""></td>';
+				cells[3].innerHTML = '<td id="points"><input type="text" id="points-input" class="points" value=""></td>';
+				cells[4].innerHTML = '<button class="save-value-btn">Save Values</button>';
+				// add event listener to the "Save Values" button
+				var saveNewValue = table.querySelector(".save-value-btn")
+				saveNewValue.addEventListener("click", function() {
+					// get new input values
+					let values = getNewValues();
+					console.log(values);
+					// send a POST request to the server with the new values
+					fetch('{% url "bear:NewEvent" %}', {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json',
+							'X-CSRFToken': '{{ csrf_token }}'
+						},
+						body: JSON.stringify(values)
+					})
+					.then(response => response.json())
+					.then(data => console.log(data))
+					.catch(error => console.error(error));
+				});
 			});
-		 
-		  return values;
-		}
-
-// get the table element and the button
-var table = document.querySelector("table");
-var addBtn = table.querySelector(".add-event-btn");
-
-// add event listener to the button
-addBtn.addEventListener("click", function() {
-  // create a new row
-  var row = table.insertRow(table.rows.length);
-
-  // add cells to the row
-  var cells = [row.insertCell(),row.insertCell(),row.insertCell(),row.insertCell(),row.insertCell()];
-
-  // add input fields to the cells
-  cells[0].innerHTML = '<td id="eventname"><input type="text" id="eventname-input" class="eventname" value=""></td>';
-cells[1].innerHTML = '<td id="date"><input type="text" id="date-input" class="date" value=""></td>';
-cells[2].innerHTML = '<td id="description"><input type="text" id="description-input" class="description" value=""></td>';
-cells[3].innerHTML = '<td id="points"><input type="text" id="points-input" class="points" value=""></td>';
-cells[4].innerHTML = '<button class="save-value-btn">Save Values</button>';
-
-
-  var saveNewValue = table.querySelector(".save-value-btn")
-  saveNewValue.addEventListener("click", function() {
-    let values = getNewValues();
-    console.log(values);
-    fetch('{% url "bear:NewEvent" %}', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-CSRFToken': '{{ csrf_token }}'
-      },
-      body: JSON.stringify(values)
-    })
-    .then(response => response.json())
-    .then(data => console.log(data))
-    .catch(error => console.error(error));
-  });
-});
-
-	
-	
-</script>
-<script>
-	document.querySelectorAll('.action-btn').forEach((button) => {
-  button.addEventListener('click', (event) => {
-    const requestId = button.dataset.requestId;
-    const action = button.dataset.action;
-    fetch('{% url "bear:accept_request" %}', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-CSRFToken': '{{ csrf_token }}',
-      },
-      body: JSON.stringify({ requestId, action }),
-    }).then(() => {
-      const row = document.querySelector(`[data-request-id="${requestId}"]`);
-      row.remove();
-      location.reload(); // Refresh the page
-    });
-  });
-});
-	</script>
-</body>
+			// add event listener to all buttons with class "action-btn"
+			document.querySelectorAll('.action-btn').forEach((button) => {
+				button.addEventListener('click', (event) => {
+					// get the requestId and action from the button's data attributes
+					const requestId = button.dataset.requestId;
+					const action = button.dataset.action;
+					// send a POST request to the server to accept or reject the request
+					fetch('{% url "bear:accept_request" %}', {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json',
+							'X-CSRFToken': '{{ csrf_token }}',
+						},
+						body: JSON.stringify({ requestId, action }),
+					}).then(() => {
+						// remove the row corresponding to the request from the table and refresh the page
+						const row = document.querySelector(`[data-request-id="${requestId}"]`);
+						row.remove();
+						location.reload(); // Refresh the page
+					});
+				});
+			});
+		</script>
+	</body>
 </html>

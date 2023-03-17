@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+    <!--Website head with Favicon and links to external files-->
     <head>
         <link rel=icon href="{% static 'icon/only-logo.ico' %}" sizes=128x128 type=image/png>
         <meta charset="UTF-8">
@@ -10,18 +11,14 @@
         <script src="{% static 'reportscripts.js' %}"></script>
     </head>
     <body>
-        {% if SignedIn %}
-        <div class="topnav">
-            
-        </div>
-        {% else %}
+        <!--Top navigation bar with logo, menu, login, and signin-->
         <div class="topnav">
             <img src="{% static 'png/only-logo-white.png' %}" alt="logo" style="width:50px; height:40px; vertical-align: center; padding-left: 10px;">
             <a onclick="openNav()" class="menu">Menu</a>
             <a href="{% url 'bear:LogIn' %}">Log In</a>
             <a href="{% url 'bear:signUp' %}">Sign Up</a>
         </div>
-        {% endif %}
+        <!--Side navigation bar opened from menu in topnav-->
         <div id="mySidenav" class="sidenav">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
             <a href="{% url 'bear:index' %}">Home</a>
@@ -29,8 +26,9 @@
             <a href="{% url 'bear:report' %}">Report</a>
         </div>
         <header>
-            <h1>BearHub Report</h1>
+            <h1>BearHub Report</h1><!--site header-->
         </header>
+        <!--tab options for displaying data-->
         <div class="tab">
             <button class="tablinks" onclick="openCat(event, 'All')" id="defaultOpen">All</button>
             <button class="tablinks" onclick="openCat(event, '9th')">9th</button>
@@ -39,9 +37,11 @@
             <button class="tablinks" onclick="openCat(event, '12th')">12th</button>
             <button class="tablinks" onclick="openCat(event, 'avgpg')">Average Per Grade</button>
         </div>
+        <!--All students-->
         <div id="All" class="tabcontent">
             <div class="containera" style="float: left; text-align: center;">
                 <h2 class="table-title">Top students</h2>
+                <!--table of top 10 students-->
                 <table>
                     <thead>
                         <tr>
@@ -52,19 +52,20 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for user in users|slice:":10" %}
-                        <tr>
-                            <td>{{ forloop.counter }}</td>
-                            <td>{{ user.First_name }}<br>{{ user.Last_name }}</td>
-                            <td>{{ user.grade_level }}</td>
-                            <td>{{ user.points }}</td>
-                        </tr>
+                        {% for user in users|slice:":10" %}<!--for loop for first 10 students-->
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ user.First_name }}<br>{{ user.Last_name }}</td>
+                                <td>{{ user.grade_level }}</td>
+                                <td>{{ user.points }}</td>
+                            </tr>
                         {% endfor %}
                     </tbody>
                 </table>
             </div>
             <div class="containera" style="float: left; text-align: center;">
                 <h2 class="table-title">Top students</h2>
+                <!--table for next 10 students-->
                 <table>
                     <thead>
                         <tr>
@@ -76,17 +77,18 @@
                     </thead>
                     <tbody>
                         {% for user in users|slice:"10:20" %}
-                        <tr>
-                            <td>{{ forloop.counter|add:10 }}</td>
-                            <td>{{ user.First_name }}<br>{{ user.Last_name }}</td>
-                            <td>{{ user.grade_level }}</td>
-                            <td>{{ user.points }}</td>
-                        </tr>
+                            <tr>
+                                <td>{{ forloop.counter|add:10 }}</td>
+                                <td>{{ user.First_name }}<br>{{ user.Last_name }}</td>
+                                <td>{{ user.grade_level }}</td>
+                                <td>{{ user.points }}</td>
+                            </tr>
                         {% endfor %}
                     </tbody>
                 </table>
             </div>
         </div>
+        <!--9th grade students-->
         <div id="9th" class="tabcontent">
             <div class="containera" style="float: left; text-align: center;">
                 <h2 class="table-title">Top students in 9th grade</h2>
@@ -100,11 +102,11 @@
                     </thead>
                     <tbody>
                         {% for user in users9|slice:":10" %}
-                        <tr>
-                            <td>{{ forloop.counter }}</td>
-                            <td>{{ user.First_name }}<br>{{ user.Last_name }}</td>
-                            <td>{{ user.points }}</td>
-                        </tr>
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ user.First_name }}<br>{{ user.Last_name }}</td>
+                                <td>{{ user.points }}</td>
+                            </tr>
                         {% endfor %}
                     </tbody>
                 </table>
@@ -121,16 +123,17 @@
                     </thead>
                     <tbody>
                         {% for user in users9|slice:"10:20" %}
-                        <tr>
-                            <td>{{ forloop.counter|add:10 }}</td>
-                            <td>{{ user.First_name }}<br>{{ user.Last_name }}</td>
-                            <td>{{ user.points }}</td>
-                        </tr>
+                            <tr>
+                                <td>{{ forloop.counter|add:10 }}</td>
+                                <td>{{ user.First_name }}<br>{{ user.Last_name }}</td>
+                                <td>{{ user.points }}</td>
+                            </tr>
                         {% endfor %}
                     </tbody>
                 </table>
             </div>
         </div>
+        <!--10th grade students-->
         <div id="10th" class="tabcontent">
             <div class="containera" style="float: left; text-align: center;">
                 <h2 class="table-title">Top students in 9th grade</h2>
@@ -144,11 +147,11 @@
                     </thead>
                     <tbody>
                         {% for user in users10|slice:":10" %}
-                        <tr>
-                            <td>{{ forloop.counter }}</td>
-                            <td>{{ user.First_name }}<br>{{ user.Last_name }}</td>
-                            <td>{{ user.points }}</td>
-                        </tr>
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ user.First_name }}<br>{{ user.Last_name }}</td>
+                                <td>{{ user.points }}</td>
+                            </tr>
                         {% endfor %}
                     </tbody>
                 </table>
@@ -165,16 +168,17 @@
                     </thead>
                     <tbody>
                         {% for user in users10|slice:"10:20" %}
-                        <tr>
-                            <td>{{ forloop.counter|add:10 }}</td>
-                            <td>{{ user.First_name }}<br>{{ user.Last_name }}</td>
-                            <td>{{ user.points }}</td>
-                        </tr>
+                            <tr>
+                                <td>{{ forloop.counter|add:10 }}</td>
+                                <td>{{ user.First_name }}<br>{{ user.Last_name }}</td>
+                                <td>{{ user.points }}</td>
+                            </tr>
                         {% endfor %}
                     </tbody>
                 </table>
             </div>
         </div>
+        <!--11th grade students-->
         <div id="11th" class="tabcontent">
             <div class="containera" style="float: left; text-align: center;">
                 <h2 class="table-title">Top students in 9th grade</h2>
@@ -188,11 +192,11 @@
                     </thead>
                     <tbody>
                         {% for user in users11|slice:":10" %}
-                        <tr>
-                            <td>{{ forloop.counter }}</td>
-                            <td>{{ user.First_name }}<br>{{ user.Last_name }}</td>
-                            <td>{{ user.points }}</td>
-                        </tr>
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ user.First_name }}<br>{{ user.Last_name }}</td>
+                                <td>{{ user.points }}</td>
+                            </tr>
                         {% endfor %}
                     </tbody>
                 </table>
@@ -209,16 +213,17 @@
                     </thead>
                     <tbody>
                         {% for user in users11|slice:"10:20" %}
-                        <tr>
-                            <td>{{ forloop.counter|add:10 }}</td>
-                            <td>{{ user.First_name }}<br>{{ user.Last_name }}</td>
-                            <td>{{ user.points }}</td>
-                        </tr>
+                            <tr>
+                                <td>{{ forloop.counter|add:10 }}</td>
+                                <td>{{ user.First_name }}<br>{{ user.Last_name }}</td>
+                                <td>{{ user.points }}</td>
+                            </tr>
                         {% endfor %}
                     </tbody>
                 </table>
             </div>
         </div>
+        <!--12th grade students-->
         <div id="12th" class="tabcontent">
             <div class="containera" style="float: left; text-align: center;">
                 <h2 class="table-title">Top students in 9th grade</h2>
@@ -232,11 +237,11 @@
                     </thead>
                     <tbody>
                         {% for user in users12|slice:":10" %}
-                        <tr>
-                            <td>{{ forloop.counter }}</td>
-                            <td>{{ user.First_name }}<br>{{ user.Last_name }}</td>
-                            <td>{{ user.points }}</td>
-                        </tr>
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ user.First_name }}<br>{{ user.Last_name }}</td>
+                                <td>{{ user.points }}</td>
+                            </tr>
                         {% endfor %}
                     </tbody>
                 </table>
@@ -253,22 +258,24 @@
                     </thead>
                     <tbody>
                         {% for user in users12|slice:"10:20" %}
-                        <tr>
-                            <td>{{ forloop.counter|add:10 }}</td>
-                            <td>{{ user.First_name }}<br>{{ user.Last_name }}</td>
-                            <td>{{ user.points }}</td>
-                        </tr>
+                            <tr>
+                                <td>{{ forloop.counter|add:10 }}</td>
+                                <td>{{ user.First_name }}<br>{{ user.Last_name }}</td>
+                                <td>{{ user.points }}</td>
+                            </tr>
                         {% endfor %}
                     </tbody>
                 </table>
             </div>
         </div>
+        <!--average points per grade-->
         <div id="avgpg" class="tabcontent">
             <div class="container" style="float: left;">
-                <canvas id="myChart"></canvas>
+                <canvas id="myChart"></canvas><!--chart of average points per grade-->
             </div>
             <div class="container" style="float:left;">
                 <h2 class="table-title">Average Points Per Grade</h2>
+                <!--table of average points per grade-->
                 <table>
                     <thead>
                         <tr>
@@ -301,6 +308,7 @@
                 </table>
             </div>
         </div>
+        <!--javascript-->
         <script>
             // Get the data from the Django view and pass it to the JavaScript file
             var users = "{{ users|safe }}";
@@ -308,13 +316,10 @@
             var avg10 = "{{ avg10|safe }}";
             var avg11 = "{{ avg11|safe }}";
             var avg12 = "{{ avg12|safe }}";
-
             // Create an array of labels for the chart
             var labels = ["9th Grade", "10th Grade", "11th Grade", "12th Grade"];
-
             // Create an array of data for the chart
             var data = [avg9, avg10, avg11, avg12];
-
             // Create a function to generate the chart
             function generateChart() {
                 var ctx = document.getElementById("myChart").getContext('2d');
@@ -351,27 +356,25 @@
                     }
                 });
             }
-
             // Call the function to generate the chart
             generateChart();
-
+            //function to open a tab when the tab is clicked
             function openCat(evt, catName) {
                 var i, tabcontent, tablinks;
                 tabcontent = document.getElementsByClassName("tabcontent");
                 for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = "none";
+                    tabcontent[i].style.display = "none";
                 }
                 tablinks = document.getElementsByClassName("tablinks");
                 for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].className = tablinks[i].className.replace(" active", "");
+                    tablinks[i].className = tablinks[i].className.replace(" active", "");
                 }
                 document.getElementById(catName).style.display = "block";
                 evt.currentTarget.className += " active";
             }
-
             // Get the element with id="defaultOpen" and click on it
             document.getElementById("defaultOpen").click();
         </script>
-        <script src="{% static 'scripts.js' %}"></script>
+        <script src="{% static 'scripts.js' %}"></script><!--link to javascript file-->
     </body>
 </html>

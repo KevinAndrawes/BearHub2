@@ -1,102 +1,114 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<link rel=icon href="{% static 'icon/only-logo.ico' %}" sizes=128x128 type=image/png>
-	<title>BearHub</title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link href="{% static 'style.css' %}" rel="stylesheet">
-</head>
-<body>
-	<div class="topnav">
-		<img src="{% static 'png/only-logo-white.png' %}" alt="logo" style="width:50px; height:40px; vertical-align: center; padding-left: 10px;">
-		<a onclick="openNav()" class="menu">Menu</a>
-		<button class="b" onmouseover="showInfo()">{{ user.First_name.capitalize }} {{ user.Last_name.capitalize|first }}</button>
-	</div>
-	<div id="mySidenav" class="sidenav">
-		<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-		<a href="{% url 'bear:help' %}">Help</a>
-		<a href="{% url 'bear:report' %}">Report</a>
-		<a href="{% url 'bear:index' %}">Logout <img class = "cimg" src="{% static 'png/logout.png' %}"></a>
-	</div>
-	<div id="infoWindow">
-		<h2>Current points: {{ user.points }}<br>Grade Level: {{ user.grade_level }}</h2>
-	</div>
-	<header>
-		<img src="{% static 'png/logo-no-background.png' %}" alt="logo" style="width:1000px; height:151px; padding:4px;">
-	</header>
-	<div class="container">
-		<h2>Hello, {{ user.First_name.capitalize }}</h2>
-		<div class="containera">
-			<h2 class="table-title">My Requests</h2>
-			<table>
-				<tr>
-					<th >Event</th>
-					<th >Date</th>
-					<th >Point Request</th>
-				</tr>
-				{% for event in events %}
-				<tr>
-					<td>{{ event.name }}</td>
-					<td>{{ event.date }}</td>
-					<td>{{ event.point_value }}</td>
-				</tr>
-				{% endfor %}
-			</table>
+	<!--Website head with Favicon and links to external files-->
+	<head>
+		<link rel=icon href="{% static 'icon/only-logo.ico' %}" sizes=128x128 type=image/png>
+		<title>BearHub</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link href="{% static 'style.css' %}" rel="stylesheet">
+	</head>
+	<body>
+		<!--Top navigation bar with logo, menu, and display of user's name-->
+		<div class="topnav">
+			<img src="{% static 'png/only-logo-white.png' %}" alt="logo" style="width:50px; height:40px; vertical-align: center; padding-left: 10px;">
+			<a onclick="openNav()" class="menu">Menu</a>
+			<button class="b" onmouseover="showInfo()">{{ user.First_name.capitalize }} {{ user.Last_name.capitalize|first }}</button>
 		</div>
-		<div class="containera">
-			<h2 class="table-title">Available Events</h2>
-			<table class= "events">
-				<tr>
-					<th class =events>Event</th>
-					<th class =events>Date</th>
-					<th class =events>Description</th>
-					<th class =events>Point Request</th>
-					<th class =events></th>
-				</tr>
-				{% for event in Nonevents %}
-				<tr>
-					<td>{{ event.name }}</td>
-					<td>{{ event.date }}</td>
-					<td>{{ event.description }}</td>
-					<td>{{ event.point_value }}</td>
-					<td>
-						<form method="post" action="{% url 'bear:requestEvent' %}">
-							{% csrf_token %}
-							<input type="hidden" name="event_id" value="{{ event.id }}">
-							<input type="hidden" name="user_id" value="{{ user.id }}">
-							<button type="submit">Request Event</button>
-						</form>
-					</td>
-				</tr>
-				{% endfor %}
-			</table>
+		<!--Side navigation bar opened from menu in topnav-->
+		<div id="mySidenav" class="sidenav">
+			<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+			<a href="{% url 'bear:help' %}">Help</a>
+			<a href="{% url 'bear:report' %}">Report</a>
+			<a href="{% url 'bear:index' %}">Logout <img class = "cimg" src="{% static 'png/logout.png' %}"></a>
 		</div>
-		<div class="containera">
-			<h2 class="table-title">Prizes</h2>
-			<table>
-				<tr>
-					<th>Points Required</th>
-					<th>Prize</th>
-					<th>Claim Reward</th>
-				</tr>
-				{% for Reward in Rewards %}
-				<tr>
-					<td>{{ Reward.point_value }}</td>
-					<td>{{ Reward.Name }}</td>
-					<td>
-						<form method="POST" action="{% url 'bear:claim_reward' %}">
-							{% csrf_token %}
-							<input type="hidden" name="reward_id" value="{{ Reward.id }}">
-							<input type="hidden" name="student_id" value="{{ user.id }}">
-							<button type="submit">Claim</button>
-						</form>
-					</td>
-				</tr>
-				{% endfor %}
-			</table>
+		<!--information display window from hovering over user's name-->
+		<div id="infoWindow">
+			<h2>Current points: {{ user.points }}<br>Grade Level: {{ user.grade_level }}</h2>
 		</div>
-	<script src="{% static 'scripts.js' %}"></script>
-</body>
+		<!--site header-->
+		<header>
+			<img src="{% static 'png/logo-no-background.png' %}" alt="logo" style="width:1000px; height:151px; padding:4px;">
+		</header>
+		<!--site body-->
+		<div class="container">
+			<h2>Hello, {{ user.First_name.capitalize }}</h2>
+			<div class="containera">
+				<h2 class="table-title">My Requests</h2>
+				<!--table for every requested event-->
+				<table>
+					<tr>
+						<th >Event</th>
+						<th >Date</th>
+						<th >Point Request</th>
+					</tr>
+					{% for event in events %}<!--for loop for every requested event-->
+						<tr>
+							<td>{{ event.name }}</td>
+							<td>{{ event.date }}</td>
+							<td>{{ event.point_value }}</td>
+						</tr>
+					{% endfor %}
+				</table>
+			</div>
+			<div class="containera">
+				<h2 class="table-title">Available Events</h2>
+				<!--table for every available event-->
+				<table class= "events">
+					<tr>
+						<th class =events>Event</th>
+						<th class =events>Date</th>
+						<th class =events>Description</th>
+						<th class =events>Point Request</th>
+						<th class =events></th>
+					</tr>
+					{% for event in Nonevents %}<!--for loop for every available event-->
+						<tr>
+							<td>{{ event.name }}</td>
+							<td>{{ event.date }}</td>
+							<td>{{ event.description }}</td>
+							<td>{{ event.point_value }}</td>
+							<td>
+								<!--button to request event points-->
+								<form method="post" action="{% url 'bear:requestEvent' %}">
+									{% csrf_token %}
+									<input type="hidden" name="event_id" value="{{ event.id }}">
+									<input type="hidden" name="user_id" value="{{ user.id }}">
+									<button type="submit">Request Event</button>
+								</form>
+							</td>
+						</tr>
+					{% endfor %}
+				</table>
+			</div>
+			<div class="containera">
+				<h2 class="table-title">Prizes</h2>
+				<!--table for rewards-->
+				<table>
+					<tr>
+						<th>Points Required</th>
+						<th>Prize</th>
+						<th>Claim Reward</th>
+					</tr>
+					{% for Reward in Rewards %}<!--for loop for every reward-->
+						<tr>
+							<td>{{ Reward.point_value }}</td>
+							<td>{{ Reward.Name }}</td>
+							<td>
+								<!--button to claim reward-->
+								<form method="POST" action="{% url 'bear:claim_reward' %}">
+									{% csrf_token %}
+									<input type="hidden" name="reward_id" value="{{ Reward.id }}">
+									<input type="hidden" name="student_id" value="{{ user.id }}">
+									<button type="submit">Claim</button>
+								</form>
+							</td>
+						</tr>
+					{% endfor %}
+				</table>
+			</div>
+		</div>
+		<script src="{% static 'scripts.js' %}"></script><!--link to js file-->
+	</body>
 </html>
