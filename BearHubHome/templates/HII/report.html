@@ -10,12 +10,18 @@
         <script src="{% static 'reportscripts.js' %}"></script>
     </head>
     <body>
+        {% if SignedIn %}
+        <div class="topnav">
+            
+        </div>
+        {% else %}
         <div class="topnav">
             <img src="{% static 'png/only-logo-white.png' %}" alt="logo" style="width:50px; height:40px; vertical-align: center; padding-left: 10px;">
             <a onclick="openNav()" class="menu">Menu</a>
             <a href="{% url 'bear:LogIn' %}">Log In</a>
             <a href="{% url 'bear:signUp' %}">Sign Up</a>
         </div>
+        {% endif %}
         <div id="mySidenav" class="sidenav">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
             <a href="{% url 'bear:index' %}">Home</a>
