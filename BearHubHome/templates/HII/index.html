@@ -62,27 +62,28 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.js"></script>
     <script>
-      var allevents = "{{ allevents|safe }}";
-      var fevents = [];
       $(document).ready(function() {
-        $('#calendar').fullCalendar({
-          header: {
+    $('#calendar').fullCalendar({
+        header: {
             left: 'prev,next today',
             center: 'title',
             right: 'month,basicWeek,basicDay'
-          },
-          defaultDate: Date(),
-          navLinks: true, // can click day/week names to navigate views
-          editable: true,
-          eventLimit: true, // allow "more" link when too many events
-          events: [
-            {
-              title: "change all events!!!",
-              start: "2023-03-15"
-            }
-          ]
-        });
-      });
+        },
+        defaultDate: Date(),
+        navLinks: true, // can click day/week names to navigate views
+        editable: true,
+        eventLimit: true, // allow "more" link when too many events
+        events: function(start, end, timezone, callback) {
+            $.ajax({
+                url: '{% url "bear:get_events" %}',
+                dataType: 'json',
+                success: function(response) {
+                    callback(response);
+                }
+            });
+        }
+    });
+});
     </script>
   </body>
 </html>

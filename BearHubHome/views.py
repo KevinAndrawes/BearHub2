@@ -118,7 +118,17 @@ def kevin(request):
     return HttpResponse("Hello Kevin")
 def index(request):
     allevents = Event.objects.order_by('date')
-    return render(request,"HII/index.html", {"allevents": allevents})
+    return render(request,"HII/index.html")
+def get_events(request):
+    events = Event.objects.all()
+    data = []
+    for event in events:
+        data.append({
+            'title': event.name,
+            'start': event.date.isoformat(),
+            'description': event.description,
+        })
+    return JsonResponse(data, safe=False)
 def help(request):
     return render(request,"HII/help.html")
 def adminLogIn(request):
