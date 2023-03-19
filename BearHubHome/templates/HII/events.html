@@ -1,0 +1,30 @@
+<div class="containera">
+    <h2 class="table-title">Available Events</h2>
+    <!--table for every available event-->
+    <table class= "events">
+        <tr>
+            <th class =events>Event</th>
+            <th class =events>Date</th>
+            <th class =events>Description</th>
+            <th class =events>Point Request</th>
+            <th class =events></th>
+        </tr>
+        {% for event in Nonevents %}<!--for loop for every available event-->
+            <tr>
+                <td>{{ event.name }}</td>
+                <td>{{ event.date }}</td>
+                <td>{{ event.description }}</td>
+                <td>{{ event.point_value }}</td>
+                <td>
+                    <!--button to request event points-->
+                    <form method="post" action="{% url 'bear:requestEvent' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="event_id" value="{{ event.id }}">
+                        <input type="hidden" name="user_id" value="{{ user.id }}">
+                        <button type="submit">Request Event</button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>

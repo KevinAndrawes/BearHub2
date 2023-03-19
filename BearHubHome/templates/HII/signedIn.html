@@ -63,7 +63,7 @@
 						<th class =events>Point Request</th>
 						<th class =events></th>
 					</tr>
-					{% for event in Nonevents %}<!--for loop for every available event-->
+					{% for event in Nonevents|slice:":5" %}<!--for loop for every available event-->
 						<tr>
 							<td>{{ event.name }}</td>
 							<td>{{ event.date }}</td>
@@ -81,6 +81,7 @@
 						</tr>
 					{% endfor %}
 				</table>
+				<a class="button" href="{% url 'bear:events' %}" style="float: right;">View all events here</a>
 			</div>
 			<div class="containera">
 				<h2 class="table-title">Prizes</h2>
