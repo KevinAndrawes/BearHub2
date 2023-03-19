@@ -86,13 +86,56 @@
 		</div>
 		<div class="containera" style="float: left">
 			<h2 class="table-title">Rewards</h2>
-			<input type="text" placeholder="Search..">
+			<input id="search" type="text" placeholder="Search..." style="display: inline-block;">
+			<button id="searchButton" class="search" style="display: inline-block;">Search</button>
+			<div id="result"></div>
+		  </div>
 			<!-------------------------------------------------------FIX THIS CODE KEVIN!!!!!!------------------------------------------------------->
 		</div>
 		<!--javascript link/code-->
 		<script src="{% static 'scripts.js' %}"></script>
+		<script >
+			
+function search() {
+	let search = document.querySelector('#search');
+	let searchValue = search ? search.value : '';
+	return {
+	  searchValue
+	};
+  }
+  
+  var searchButton = document.querySelector('#searchButton');
+  searchButton.addEventListener("click", function() {
+	// get new input values
+	let values = search();
+	console.log(values);
+	// send a POST request to the server with the new values
+	fetch('{% url "bear:checkReward" %}', {
+	  method: 'POST',
+	  headers: {
+		'Content-Type': 'application/json',
+		'X-CSRFToken': '{{ csrf_token }}'
+	  },
+	  body: JSON.stringify(values)
+	})
+	.then(response => response.json())
+	.then(data => {
+	  console.log(data.message); // log the message to the console
+	  // display the message on the page
+	  let resultDiv = document.querySelector('#result');
+	  resultDiv.innerHTML = data.message;
+	  if (data.message === 'This code is correct, this code is no longer valid!') {
+		resultDiv.style.color = 'green'; // set the color to green
+	  } else {
+		resultDiv.style.color = 'red'; // set the color to red NOT WORKING 
+	  }
+	})
+	.catch(error => console.error(error));
+  });
+		</script>
 		<script>
 			// This function extracts values from the form fields and returns them in an array
+
 			function extractValues() {
 				let values = [];
 				let rows = document.querySelectorAll('#event-table tr');

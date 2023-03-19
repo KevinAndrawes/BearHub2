@@ -157,7 +157,6 @@ def Update(request):
         values = json.loads(request.body)
         for value in values:
             # update the event with the specified values
-            # (assuming you have an Event model with name, date, description, and point_value fields)
             event = Event.objects.get(name=value['name'])
             event.date = value['date']
             event.description = value['description']
@@ -247,6 +246,7 @@ def accept_request(request):
             send_mail(subject, None, from_email, recipient_list, html_message=html_message)
             return JsonResponse({'success': True})
     return JsonResponse({'success': False})
+
 def claim_reward(request):
     reward_id = request.POST.get('reward_id')
     student_id = request.POST.get('student_id')
@@ -266,6 +266,16 @@ def claim_reward(request):
         # Handle case where student doesn't have enough points
         pass
     return StudentPage(request,student_id)
+def checkReward(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        key = data.get('searchValue')
+        try:
+            rewardRequest = RewardRequest.objects.get(Key=key)
+            return JsonResponse({'message': 'This code is correct, this code is no longer valid!'})
+        except RewardRequest.DoesNotExist:
+            return JsonResponse({'message': 'Sorry, that code is incorrect.'})
+
 def report(request):
     users = Student.objects.order_by('-points')
     users9 = Student.objects.filter(grade_level=9).order_by('-points')
