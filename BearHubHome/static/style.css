@@ -1,7 +1,7 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
+    font-family: arial, sans-serif;
     background-color: #f5f5f5;
 }
 h1 { 
@@ -9,6 +9,20 @@ h1 {
     font-size: 50px;
     text-align: center;
     color: #fe914c;
+}
+.indexs {
+    font-family: 'Open Sans';
+    display: flex;
+    align-items: stretch;
+}
+.box1, .box2 {
+    margin: 20px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border: 3px solid #fe914c;
+    width: calc(50% - 40px);
+    float: left;
 }
 .container {
     margin: 20px;
@@ -70,9 +84,6 @@ border-radius: 5px;
 font-size: 16px;
 cursor: pointer;
 transition: background-color 0.3s;
-}
-button:hover {
-background-color: #3961f0;
 }
 .description {
     padding: 10px;
@@ -295,8 +306,6 @@ margin-left: 50px;
 .sidenav a {font-size: 18px;}
 }
 * {box-sizing: border-box}
-
-/* Style the tab */
 .tab {
   float: left;
   border: 1px solid #ccc;
@@ -304,8 +313,6 @@ margin-left: 50px;
   width: 10%;
   height: auto;
 }
-
-/* Style the buttons that are used to open the tab content */
 .tab button {
   display: block;
   background-color: inherit;
@@ -318,18 +325,12 @@ margin-left: 50px;
   cursor: pointer;
   transition: 0.3s;
 }
-
-/* Change background color of buttons on hover */
 .tab button:hover {
   background-color: #ddd;
 }
-
-/* Create an active/current "tab button" class */
 .tab button.active {
   background-color: #ccc;
 }
-
-/* Style the tab content */
 .tabcontent {
   float: left;
   padding: 0px 12px;

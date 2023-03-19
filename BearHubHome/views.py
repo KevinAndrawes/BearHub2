@@ -1,8 +1,10 @@
+import random
+import string
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django import forms
 from django.urls import reverse
-from BearHubHome.models import Student, Event, AdminUser, EventRequest, Reward
+from BearHubHome.models import RewardRequest, Student, Event, AdminUser, EventRequest, Reward
 import json
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
@@ -76,7 +78,7 @@ def SignUp(request):
             firstname = form.cleaned_data.get("firstName")
             lastname = form.cleaned_data.get("lastName")
             Grade_level = form.cleaned_data.get("Grade_level")
-            email = form.cleaned_data.get("Email")
+            email = form.cleaned_data.get("email")
             if Student.objects.filter(pk=idIn).exists():
                 error_message = "This student ID is already taken. Please enter a different ID."
                 return render(request, "HII/signUp.html", {"form": form, "error_message": error_message})
@@ -99,7 +101,8 @@ def SignUp(request):
 def kevin(request):
     return HttpResponse("Hello Kevin")
 def index(request):
-    return render(request,"HII/index.html")
+    allevents = Event.objects.order_by('date')
+    return render(request,"HII/index.html", {"allevents": allevents})
 def help(request):
     return render(request,"HII/help.html")
 def adminLogIn(request):
@@ -237,7 +240,8 @@ def claim_reward(request):
         student.points -= reward.point_value
         student.save()
         subject = 'Reward'
-        html_message = render_to_string('HII/reward.html', {'student': student, 'Reward': reward})
+        newRewardRequest = RewardRequest.objects.create(Key=''.join(random.choices(string.digits, k=10)))
+        html_message = render_to_string('HII/reward.html', {'student': student, 'Reward': reward, 'rewardRequest': newRewardRequest})
         from_email = 'BearHubConfirmation@gmail.com'
         recipient_list = [student.Email]
         send_mail(subject, None, from_email, recipient_list, html_message=html_message)

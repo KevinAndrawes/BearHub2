@@ -23,3 +23,5 @@ class EventRequest(models.Model):
 class Reward(models.Model):
     Name = models.CharField(max_length=64)
     point_value = models.IntegerField()
+class RewardRequest(models.Model):
+    Key = models.CharField(max_length=10)

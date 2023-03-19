@@ -7,6 +7,9 @@
     <meta charset="UTF-8">
     <title>BearHub</title>
     <link href="{% static 'style.css' %}" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/semantic.min.css" rel="stylesheet">
   </head>
   <body>
     <!--Top navigation bar with logo, menu, login, and signin-->
@@ -29,7 +32,57 @@
       <img src="{% static 'png/logo-no-background.png' %}" alt="logo" style="width:1000px; height:151px; padding:4px;">
       <p>The place for students to connect and collaborate!</p>
     </header>
+    <div class="indexs">
+      <div class="box1">
+        <h1>Welcome to BearHub!</h1>
+        <p>At BearHub, we believe that school is not just about academics, but also about getting involved in extracurricular activities and events. That's why we've created a platform that rewards students for their participation in school events.</p>
+        <p>From sports games and academic competitions to volunteering and community service events, BearHub has it all. Students can easily browse upcoming events, sign up to participate, and track their progress towards earning rewards.</p>
+        <p>But the fun doesn't stop there! BearHub also offers a competative environment for students with the report that shows the top students based on points. Through this, students are motivated and determined to compete with their peers through healthy compitition.</p>
+        <p>So what are you waiting for? Join BearHub today and start earning rewards for your participation in school events. Let's make your school experience even more unforgettable!</p>
+      </div>
+      <div class="box2">
+        <img src="{% static 'png/color-picture-logo.png' %}" alt="BearHub..." style="width: 100%;">
+      </div>
+    </div>
+    <div class="indexs">
+      <div class="box1">
+        <div class="ui container">
+          <div class="ui grid">
+            <div class="ui sixteen column">
+              <div id="calendar" style="width: 100%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <!--link to js file-->
     <script src="{% static 'scripts.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/semantic.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.js"></script>
+    <script>
+      var allevents = "{{ allevents|safe }}";
+      var fevents = [];
+      $(document).ready(function() {
+        $('#calendar').fullCalendar({
+          header: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'month,basicWeek,basicDay'
+          },
+          defaultDate: Date(),
+          navLinks: true, // can click day/week names to navigate views
+          editable: true,
+          eventLimit: true, // allow "more" link when too many events
+          events: [
+            {
+              title: "change all events!!!",
+              start: "2023-03-15"
+            }
+          ]
+        });
+      });
+    </script>
   </body>
 </html>
