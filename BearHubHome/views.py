@@ -77,7 +77,6 @@ def events(request, user_id):
         events = user.event.all().order_by('date')
         Nonevents = Event.objects.exclude(id__in=user.event.all().values_list('id', flat=True)).order_by('date')
         return render(request, "HII/signedIn.html", {"user": user,"events": events,"Nonevents": Nonevents})
-
     except Student.DoesNotExist:
         return HttpResponseRedirect(reverse("bear:LogIn"))
 
