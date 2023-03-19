@@ -21,7 +21,8 @@ class SignUpForm(forms.Form):
     lastName = forms.CharField(label="Last Name")
     id = forms.CharField(label="School ID")
     password = forms.CharField(label="Password", widget=forms.PasswordInput())
-    email = forms.CharField(label="Email Adress")
+    password2 = forms.CharField(label="Re-Enter Your Password", widget=forms.PasswordInput())
+    email = forms.CharField(label="Email Address")
     CHOICES = [
         ('9', '9th grade'),
         ('10', '10th grade'),
@@ -29,7 +30,10 @@ class SignUpForm(forms.Form):
         ('12', '12th grade'),
     ]
     Grade_level = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect,label="Grade Level:")
-    
+
+
+        
+
 def LogIn(request):
     SignedIn = False
     if request.method == "POST":
@@ -59,7 +63,6 @@ def LogIn(request):
 def StudentPage(request, user_id):
     try:
         user = Student.objects.get(pk=user_id)
-        
         events = user.event.all().order_by('date')
         Nonevents = Event.objects.exclude(id__in=user.event.all().values_list('id', flat=True)).order_by('date')
         Rewards = Reward.objects.all()
@@ -68,17 +71,30 @@ def StudentPage(request, user_id):
     except Student.DoesNotExist:
         return HttpResponseRedirect(reverse("bear:LogIn"))
 
-def SignUp(request):
+def events(request, user_id):
+    try:
+        user = Student.objects.get(pk=user_id)
+        events = user.event.all().order_by('date')
+        Nonevents = Event.objects.exclude(id__in=user.event.all().values_list('id', flat=True)).order_by('date')
+        return render(request, "HII/signedIn.html", {"user": user,"events": events,"Nonevents": Nonevents})
 
+    except Student.DoesNotExist:
+        return HttpResponseRedirect(reverse("bear:LogIn"))
+
+def SignUp(request):
     if request.method=="POST":
         form = SignUpForm(request.POST)
         if form.is_valid():
             passwordIn = form.cleaned_data.get("password")
+            password2In = form.cleaned_data.get("password2")
             idIn = form.cleaned_data.get("id")
             firstname = form.cleaned_data.get("firstName")
             lastname = form.cleaned_data.get("lastName")
             Grade_level = form.cleaned_data.get("Grade_level")
             email = form.cleaned_data.get("email")
+            if passwordIn and password2In and passwordIn != password2In:
+                error_message = "These passwords do not match."
+                return render(request, "HII/signUp.html", {"form": form, "error_message": error_message})
             if Student.objects.filter(pk=idIn).exists():
                 error_message = "This student ID is already taken. Please enter a different ID."
                 return render(request, "HII/signUp.html", {"form": form, "error_message": error_message})

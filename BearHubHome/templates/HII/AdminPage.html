@@ -30,66 +30,64 @@
 		<header>
 			<h1>BearHub Admin</h1><!--site header-->
 		</header>
-		<div class="container">
-			<!--table showing list of customizable events-->
-			<div class="containera" style="float: left;">
-				<h2 class="table-title">Events</h2>
-				<table id="event-table">
-					<tr><!--table header with "add event" button-->
-						<th>Event</th>
-						<th>Date</th>
-						<th>Description</th>
-						<th>Point Values</th>
-						<th><button class="add-event-btn">+</button></th>
+		<!--table showing list of customizable events-->
+		<div class="containera" style="float: left;">
+			<h2 class="table-title">Events</h2>
+			<table id="event-table">
+				<tr><!--table header with "add event" button-->
+					<th>Event</th>
+					<th>Date</th>
+					<th>Description</th>
+					<th>Point Values</th>
+					<th><button class="add-event-btn">+</button></th>
+				</tr>
+				{% for event in events %}<!--for loop for every existing event in database-->
+					<tr>
+						<td id="eventname"><input type="text" class = "eventname" value= "{{ event.name }}"></td>
+						<td id="date">
+							<input type="date"
+							value="{{ event.date|date:'Y-m-d' }}"
+							min="2023-01-01">
+						</td>
+						<td id="description">
+							<textarea class="description">{{ event.description }}</textarea>
+						</td>
+						<td id="points"><input type="text"class = "points" value= "{{ event.point_value }}"></td>
+						<td><button class="edit-value-btn">Save Values</button></td><!--save value button for editing events-->
 					</tr>
-					{% for event in events %}<!--for loop for every existing event in database-->
-						<tr>
-							<td id="eventname"><input type="text" class = "eventname" value= "{{ event.name }}"></td>
-							<td id="date">
-								<input type="date"
-								value="{{ event.date|date:'Y-m-d' }}"
-								min="2023-01-01">
-							</td>
-							<td id="description">
-								<textarea class="description">{{ event.description }}</textarea>
-							</td>
-							<td id="points"><input type="text"class = "points" value= "{{ event.point_value }}"></td>
-							<td><button class="edit-value-btn">Save Values</button></td><!--save value button for editing events-->
-						</tr>
-					{% endfor %}
-				</table>
-			</div>
-			<!--table to show events where students requested events-->
-			<div class="containera" style="float: left;">
-				<h2 class="table-title">Event Requests</h2>
-				<table>
-					<tr><!--table header-->
-						<th>Student</th>
-						<th>Student ID</th>
-						<th>Event </th>
-						<th>Point Values</th>
-						<th></th>
-					</tr>
-					{% for event in eventRequests %}<!--for loop for each requested event in database-->
-						<tr>
-							<td >{{ event.student.First_name.capitalize }} {{event.student.Last_name.capitalize }} </td>
-							<td >{{ event.student.id }} </td>
-							<td >{{ event.Event.name }}</td>
-							<td >{{ event.Event.point_value }}</td>
-							<!--accept/decline buttons-->
-							<td>
-								<button class="action-btn" data-request-id="{{ event.id }}" data-action="accept" style="background-color: green;">Accept</button>
-								<button class="action-btn" data-request-id="{{ event.id }}" data-action="decline" style="background-color: red;">Decline</button>
-							</td>
-						</tr>
-					{% endfor %}
-				</table>
-			</div>
+				{% endfor %}
+			</table>
 		</div>
-		<br>
+		<!--table to show events where students requested events-->
+		<div class="containera" style="float: left;">
+			<h2 class="table-title">Event Requests</h2>
+			<table>
+				<tr><!--table header-->
+					<th>Student</th>
+					<th>Student ID</th>
+					<th>Event </th>
+					<th>Point Values</th>
+					<th></th>
+				</tr>
+				{% for event in eventRequests %}<!--for loop for each requested event in database-->
+					<tr>
+						<td >{{ event.student.First_name.capitalize }} {{event.student.Last_name.capitalize }} </td>
+						<td >{{ event.student.id }} </td>
+						<td >{{ event.Event.name }}</td>
+						<td >{{ event.Event.point_value }}</td>
+						<!--accept/decline buttons-->
+						<td>
+							<button class="action-btn" data-request-id="{{ event.id }}" data-action="accept" style="background-color: green;">Accept</button>
+							<button class="action-btn" data-request-id="{{ event.id }}" data-action="decline" style="background-color: red;">Decline</button>
+						</td>
+					</tr>
+				{% endfor %}
+			</table>
+		</div>
 		<div class="containera" style="float: left">
 			<h2 class="table-title">Rewards</h2>
 			<input type="text" placeholder="Search..">
+			<!-------------------------------------------------------FIX THIS CODE KEVIN!!!!!!------------------------------------------------------->
 		</div>
 		<!--javascript link/code-->
 		<script src="{% static 'scripts.js' %}"></script>
