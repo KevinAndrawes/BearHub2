@@ -65,7 +65,9 @@
       <div class="box1">
         <h1>Compete With Peers!</h1>
         <p>Here at BearHub, we believe that the development of a student relies on their compitition in their developmental years. That's why we made this a friendly compitition between peers.</p>
-        <p>Every quarter, the student that has accumulated the most points will </p>
+        <p>Every quarter, the student that has accumulated the most points will recieve a top prize that is picked out by the admins. The prize is selected to cost proportionally to the ammount of accumulated points, ranging from bags of candy to electronics.</p>
+        <p>Although BearHub introduces healthy compitition into the highschool environment, most highschool students are at a disadvantange to others, making it hard for them to excell.</p>
+        <p> That's why BearHub has a quarterly random winner, who is picked randomly out of all students, to recieve a prize from the front office!</p>
       </div>
       <div class="box2">
         <div class="containera">
@@ -102,28 +104,27 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.js"></script>
     <script>
       $(document).ready(function() {
-    $('#calendar').fullCalendar({
-        header: {
-            left: 'prev,next today',
-            center: 'title',
-            right: 'month,basicWeek,basicDay'
-        },
-        defaultDate: Date(),
-        navLinks: true, // can click day/week names to navigate views
-        editable: true,
-        eventLimit: true, // allow "more" link when too many events
-        events: function(start, end, timezone, callback) {
+        $('#calendar').fullCalendar({
+          header: {
+              left: 'prev,next today',
+              center: 'title',
+              right: 'month,basicWeek,basicDay'
+          },
+          defaultDate: Date(),
+          navLinks: true, // can click day/week names to navigate views
+          editable: true,
+          eventLimit: true, // allow "more" link when too many events
+          events: function(start, end, timezone, callback) {
             $.ajax({
-                url: '{% url "bear:get_events" %}',
-                dataType: 'json',
-                success: function(response) {
-                    callback(response);
-                }
+              url: '{% url "bear:get_events" %}',
+              dataType: 'json',
+              success: function(response) {
+                  callback(response);
+              }
             });
-        }
-    });
-});
-
+          }
+        });
+      });
     </script>
   </body>
 </html>
