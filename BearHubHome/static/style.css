@@ -190,7 +190,6 @@ color: white;
 font-size: 30px;
 }
 .topnav {
-z-index: 10000000;
 position: fixed;
 background-color: #333;
 width: 100%;
@@ -301,7 +300,7 @@ transition: 0.3s;
 .sidenav a:hover {
 color: #f1f1f1;
 }
-.sidenav .closebtn {
+.sidenav.closebtn {
 position: absolute;
 top: 0;
 right: 25px;
