@@ -114,27 +114,25 @@ def SignUp(request):
         form = SignUpForm()
     return render(request, "HII/signUp.html", {"form": form})
 
-def kevin(request):
-    return HttpResponse("Hello Kevin")
 def index(request):
     allevents = Event.objects.order_by('date')
     return render(request,"HII/index.html")
-def get_events(request):
-    events = Event.objects.all()
+def get_events(request):# gets the events to be displayed on the calender
+    events = Event.objects.all()#grabbing all the events from the database
     data = []
-    for event in events:
-        data.append({
+    for event in events:#looping through all events
+        data.append({# data being sent
             'title': event.name,
             'start': event.date.isoformat(),
             'description': event.description,
         })
-    return JsonResponse(data, safe=False)
+    return JsonResponse(data, safe=False)#returning the data to the javascript function
 def help(request):
     return render(request,"HII/help.html")
-def adminLogIn(request):
-        if request.method == "POST":
+def adminLogIn(request):#The method for admins
+        if request.method == "POST":# when the log-in button is pressed
             form = LogInForm(request.POST)
-            if form.is_valid():
+            if form.is_valid():#getting data
                 passwordIn = form.cleaned_data.get("password")
                 idIn = form.cleaned_data.get("id")
                 # next step check if the data is correct and sign the user into the signed in page
