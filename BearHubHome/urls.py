@@ -17,7 +17,7 @@ path('accept_request', views.accept_request, name='accept_request'),
 path('report',views.report,name="report"),
 path('claim_reward',views.claim_reward,name='claim_reward'),
 path('help',views.help,name='help'),
-path('events', views.events, name='events'),
+path('events/<int:user_id>/', views.events, name='events'),
 path('checkReward',views.checkReward,name='checkReward'),
 path('get_events',views.get_events,name='get_events')
 ]

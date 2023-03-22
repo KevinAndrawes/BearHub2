@@ -1,5 +1,37 @@
-<div class="containera">
-    <h2 class="table-title">Available Events</h2>
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+	<!--Website head with Favicon and links to external files-->
+	<head>
+		<link rel=icon href="{% static 'icon/only-logo.ico' %}" sizes=128x128 type=image/png>
+		<title>BearHub</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link href="{% static 'style.css' %}" rel="stylesheet">
+	</head>
+	<body>
+		<!--Top navigation bar with logo, menu, and display of user's name-->
+		<div class="topnav">
+			<img src="{% static 'png/only-logo-white.png' %}" alt="logo" style="width:50px; height:40px; vertical-align: center; padding-left: 10px;">
+			<a class="button" href="{% url 'bear:stupage' user_id=user.id %}" class="menu" style="color: red;">Back </a>
+			<button class="b" onmouseover="showInfo()">{{ user.First_name.capitalize }} {{ user.Last_name.capitalize|first }}</button>
+		</div>
+		<!--Side navigation bar opened from menu in topnav-->
+		<div id="mySidenav" class="sidenav">
+			<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+			<a href="{% url 'bear:help' %}">Help</a>
+			<a href="{% url 'bear:report' %}">Report</a>
+			<a href="{% url 'bear:index' %}">Logout <img class = "cimg" src="{% static 'png/logout.png' %}"></a>
+		</div>
+        <div id="infoWindow">
+			<h2>Admin</h2>
+		</div>
+		<header>
+			<h1>BearHub Events</h1><!--site header-->
+		</header>
+        <div class="containera" style="margin: 0 auto; text-align: center;">
+            <h2 class="table-title">Available Events</h2>
     <!--table for every available event-->
     <table class= "events">
         <tr>
@@ -28,3 +60,4 @@
         {% endfor %}
     </table>
 </div>
+</html>

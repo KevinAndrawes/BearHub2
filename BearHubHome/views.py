@@ -10,6 +10,8 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
+from django.db.models import Count, Sum, Avg
+
 class LogInForm(forms.Form):# form for longing in
     id = forms.CharField(label="ID")
     password = forms.CharField(label="Password", widget=forms.PasswordInput())
@@ -83,7 +85,7 @@ def events(request, user_id):
         # Retrieve all events that the student hasn't signed up for yet and order them by date
         Nonevents = Event.objects.exclude(id__in=user.event.all().values_list('id', flat=True)).order_by('date')
         # Render the signedIn.html template with the retrieved data
-        return render(request, "HII/signedIn.html", {"user": user, "events": events, "Nonevents": Nonevents})
+        return render(request, "HII/events.html", {"user": user, "events": events, "Nonevents": Nonevents})
     # If the student doesn't exist, redirect to the login page
     except Student.DoesNotExist:
         return HttpResponseRedirect(reverse("bear:LogIn"))
@@ -268,6 +270,7 @@ def claim_reward(request):
     reward = get_object_or_404(Reward, id=reward_id)
     student = get_object_or_404(Student,id=student_id)  # Assuming the logged in user is a student
     if student.points >= reward.point_value:
+        #If student points are greater than the cost of the reward than award the student & email
         student.points -= reward.point_value
         student.save()
         subject = 'Reward'
@@ -290,31 +293,52 @@ def checkReward(request): # Checking if the code is valid that the admin enters
             return JsonResponse({'message': 'This code is correct, this code is no longer valid!'})
         except RewardRequest.DoesNotExist:
             return JsonResponse({'message': 'Sorry, that code is incorrect.'})
-
-def report(request):# the view for the report
-    users = Student.objects.order_by('-points')#getting all the grades and ordering them by points
+def report(request):
+    users = Student.objects.order_by('-points')
     users9 = Student.objects.filter(grade_level=9).order_by('-points')
     users10 = Student.objects.filter(grade_level=10).order_by('-points')
     users11 = Student.objects.filter(grade_level=11).order_by('-points')
     users12 = Student.objects.filter(grade_level=12).order_by('-points')
-    avg9 = 0
-    for user in users9:# getting the averages for 9th grade
-        avg9 += user.points
-    avg9 = round(avg9 / len(users9))
-    avg10 = 0
-    for user in users10:# getting the averages for 9th grade
-        avg10 += user.points
-    avg10 = round(avg10 / len(users10))
-    avg11 = 0
-    for user in users11:# getting the averages for 10th grade
-        avg11 += user.points
-    avg11 = round(avg11 / len(users11))
-    avg12 = 0
-    for user in users12:# getting the averages for 11th grade
-        avg12 += user.points
-    avg12 = round(avg12 / len(users12))
-    avg = 0
-    for user in users:# getting the averages for 12th grade
-        avg += user.points
-    avg = round(avg / len(users)) #returning all the elements need for the report
-    return render(request, "HII/report.html", {"users": users, "users9": users9, "users10": users10, "users11": users11, "users12": users12, "avg9": avg9, "avg10": avg10, "avg11": avg11, "avg12": avg12, "avg": avg})
+
+    avg9 = users9.aggregate(Avg('points'))['points__avg']
+    avg10 = users10.aggregate(Avg('points'))['points__avg']
+    avg11 = users11.aggregate(Avg('points'))['points__avg']
+    avg12 = users12.aggregate(Avg('points'))['points__avg']
+    avg = users.aggregate(Avg('points'))['points__avg']
+
+    total9 = users9.aggregate(Sum('points'))['points__sum']
+    total10 = users10.aggregate(Sum('points'))['points__sum']
+    total11 = users11.aggregate(Sum('points'))['points__sum']
+    total12 = users12.aggregate(Sum('points'))['points__sum']
+    total = users.aggregate(Sum('points'))['points__sum']
+    random_winner = []
+    for students in [users9, users10, users11, users12]:
+        if students.exists():
+            random_winner.append(random.choice(students))
+
+    # selecting the student with the highest points in each grade level
+    highest_point_students = []
+    for grade_level in [9, 10, 11, 12]:
+        student = Student.objects.filter(grade_level=grade_level).order_by('-points').first()
+        highest_point_students.append(student)
+    context = {
+        "users": users,
+        "users9": users9,
+        "users10": users10,
+        "users11": users11,
+        "users12": users12,
+        "avg9": round(avg9) if avg9 else 0,
+        "avg10": round(avg10) if avg10 else 0,
+        "avg11": round(avg11) if avg11 else 0,
+        "avg12": round(avg12) if avg12 else 0,
+        "avg": round(avg) if avg else 0,
+        "total9": total9 if total9 else 0,
+        "total10": total10 if total10 else 0,
+        "total11": total11 if total11 else 0,
+        "total12": total12 if total12 else 0,
+        "total": total if total else 0,
+        "random_winner":random_winner,
+        "higest_point_students":highest_point_students
+    }
+
+    return render(request, "HII/report.html", context)

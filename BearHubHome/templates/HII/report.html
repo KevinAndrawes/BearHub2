@@ -35,10 +35,10 @@
             <button class="tablinks" onclick="openCat(event, '10th')">10th</button>
             <button class="tablinks" onclick="openCat(event, '11th')">11th</button>
             <button class="tablinks" onclick="openCat(event, '12th')">12th</button>
-            <button class="tablinks" onclick="openCat(event, 'avgpg')">Average Per Grade</button>
         </div>
         <!--All students-->
         <div id="All" class="tabcontent">
+            
             <div class="containera" style="float: left; text-align: center;">
                 <h2 class="table-title">Top students</h2>
                 <!--table of top 10 students-->
@@ -63,216 +63,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="containera" style="float: left; text-align: center;">
-                <h2 class="table-title">Top students</h2>
-                <!--table for next 10 students-->
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Place</th>
-                            <th>Name</th>
-                            <th>Grade</th>
-                            <th>Points</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for user in users|slice:"10:20" %}
-                            <tr>
-                                <td>{{ forloop.counter|add:10 }}</td>
-                                <td>{{ user.First_name }}<br>{{ user.Last_name }}</td>
-                                <td>{{ user.grade_level }}</td>
-                                <td>{{ user.points }}</td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <!--9th grade students-->
-        <div id="9th" class="tabcontent">
-            <div class="containera" style="float: left; text-align: center;">
-                <h2 class="table-title">Top students in 9th grade</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Place</th>
-                            <th>Name</th>
-                            <th>Points</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for user in users9|slice:":10" %}
-                            <tr>
-                                <td>{{ forloop.counter }}</td>
-                                <td>{{ user.First_name }}<br>{{ user.Last_name }}</td>
-                                <td>{{ user.points }}</td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-            <div class="containera" style="float: left; text-align: center;">
-                <h2 class="table-title">Top students</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Place</th>
-                            <th>Name</th>
-                            <th>Points</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for user in users9|slice:"10:20" %}
-                            <tr>
-                                <td>{{ forloop.counter|add:10 }}</td>
-                                <td>{{ user.First_name }}<br>{{ user.Last_name }}</td>
-                                <td>{{ user.points }}</td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <!--10th grade students-->
-        <div id="10th" class="tabcontent">
-            <div class="containera" style="float: left; text-align: center;">
-                <h2 class="table-title">Top students in 9th grade</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Place</th>
-                            <th>Name</th>
-                            <th>Points</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for user in users10|slice:":10" %}
-                            <tr>
-                                <td>{{ forloop.counter }}</td>
-                                <td>{{ user.First_name }}<br>{{ user.Last_name }}</td>
-                                <td>{{ user.points }}</td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-            <div class="containera" style="float: left; text-align: center;">
-                <h2 class="table-title">Top students</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Place</th>
-                            <th>Name</th>
-                            <th>Points</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for user in users10|slice:"10:20" %}
-                            <tr>
-                                <td>{{ forloop.counter|add:10 }}</td>
-                                <td>{{ user.First_name }}<br>{{ user.Last_name }}</td>
-                                <td>{{ user.points }}</td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <!--11th grade students-->
-        <div id="11th" class="tabcontent">
-            <div class="containera" style="float: left; text-align: center;">
-                <h2 class="table-title">Top students in 9th grade</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Place</th>
-                            <th>Name</th>
-                            <th>Points</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for user in users11|slice:":10" %}
-                            <tr>
-                                <td>{{ forloop.counter }}</td>
-                                <td>{{ user.First_name }}<br>{{ user.Last_name }}</td>
-                                <td>{{ user.points }}</td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-            <div class="containera" style="float: left; text-align: center;">
-                <h2 class="table-title">Top students</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Place</th>
-                            <th>Name</th>
-                            <th>Points</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for user in users11|slice:"10:20" %}
-                            <tr>
-                                <td>{{ forloop.counter|add:10 }}</td>
-                                <td>{{ user.First_name }}<br>{{ user.Last_name }}</td>
-                                <td>{{ user.points }}</td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <!--12th grade students-->
-        <div id="12th" class="tabcontent">
-            <div class="containera" style="float: left; text-align: center;">
-                <h2 class="table-title">Top students in 9th grade</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Place</th>
-                            <th>Name</th>
-                            <th>Points</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for user in users12|slice:":10" %}
-                            <tr>
-                                <td>{{ forloop.counter }}</td>
-                                <td>{{ user.First_name }}<br>{{ user.Last_name }}</td>
-                                <td>{{ user.points }}</td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-            <div class="containera" style="float: left; text-align: center;">
-                <h2 class="table-title">Top students</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Place</th>
-                            <th>Name</th>
-                            <th>Points</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for user in users12|slice:"10:20" %}
-                            <tr>
-                                <td>{{ forloop.counter|add:10 }}</td>
-                                <td>{{ user.First_name }}<br>{{ user.Last_name }}</td>
-                                <td>{{ user.points }}</td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <!--average points per grade-->
-        <div id="avgpg" class="tabcontent">
-            <div class="container" style="float: left;">
-                <canvas id="myChart"></canvas><!--chart of average points per grade-->
-            </div>
+            
             <div class="container" style="float:left;">
                 <h2 class="table-title">Average Points Per Grade</h2>
                 <!--table of average points per grade-->
@@ -307,6 +98,152 @@
                     </tbody>
                 </table>
             </div>
+            <div class="container" style="float: right; width: 19.7cm;">
+                <canvas id="myChart"></canvas><!--chart of average points per grade-->
+            </div>
+            <div class="container" style="float: right; width: 19.7cm;">
+                <canvas id="myChart1"></canvas><!--chart of average points per grade-->
+            </div>
+        </div>
+        <!--9th grade students-->
+        <div id="9th" class="tabcontent">
+            <div class="containera" style="float: left; text-align: center;">
+                <h2 class="table-title">Top students in 9th grade</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Place</th>
+                            <th>Name</th>
+                            <th>Points</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users9|slice:":10" %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ user.First_name }}<br>{{ user.Last_name }}</td>
+                                <td>{{ user.points }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="containera" style="float: left">
+                <h2 class="table-title">Random Winner</h2>
+                <p>{{ random_winner.0.First_name }} {{ random_winner.0.Last_name }}</p>
+                <div id="result"></div>
+            </div>
+            <div class="containera" style="float: left">
+                <h2 class="table-title">Most Points Winner</h2>
+                <p>{{ higest_point_students.0.First_name }} {{ higest_point_students.0.Last_name }}</p>
+                <div id="result"></div>
+            </div>
+        </div>
+        <!--10th grade students-->
+        <div id="10th" class="tabcontent">
+            <div class="containera" style="float: left; text-align: center;">
+                <h2 class="table-title">Top students in 10th grade</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Place</th>
+                            <th>Name</th>
+                            <th>Points</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users10|slice:":10" %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ user.First_name }}<br>{{ user.Last_name }}</td>
+                                <td>{{ user.points }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="containera" style="float: left">
+                <h2 class="table-title">Random Winner</h2>
+                <p>{{ random_winner.1.First_name }} {{ random_winner.1.Last_name }}</p>
+                <div id="result"></div>
+            </div>
+            <div class="containera" style="float: left">
+                <h2 class="table-title">Most Points Winner</h2>
+                <p>{{ higest_point_students.1.First_name }} {{ higest_point_students.1.Last_name }}</p>
+                <div id="result"></div>
+            </div>
+        </div>
+        <!--11th grade students-->
+        <div id="11th" class="tabcontent">
+            <div class="containera" style="float: left; text-align: center;">
+                <h2 class="table-title">Top students in 11th grade</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Place</th>
+                            <th>Name</th>
+                            <th>Points</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users11|slice:":10" %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ user.First_name }}<br>{{ user.Last_name }}</td>
+                                <td>{{ user.points }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="containera" style="float: left">
+                <h2 class="table-title">Random Winner</h2>
+                <p>{{ random_winner.2.First_name }} {{ random_winner.2.Last_name }}</p>
+                <div id="result"></div>
+            </div>
+            <div class="containera" style="float: left">
+                <h2 class="table-title">Most Points Winner</h2>
+                <p>{{ higest_point_students.2.First_name }} {{ higest_point_students.2.Last_name }}</p>
+                <div id="result"></div>
+            </div>
+        </div>
+        <!--12th grade students-->
+        <div id="12th" class="tabcontent">
+            <div class="containera" style="float: left; text-align: center;">
+                <h2 class="table-title">Top students in 12th grade</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Place</th>
+                            <th>Name</th>
+                            <th>Points</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users12|slice:":10" %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ user.First_name }}<br>{{ user.Last_name }}</td>
+                                <td>{{ user.points }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="containera" style="float: left">
+                <h2 class="table-title">Random Winner</h2>
+                <p>{{ random_winner.3.First_name }} {{ random_winner.3.Last_name }}</p>
+                <div id="result"></div>
+            </div>
+            <div class="containera" style="float: left">
+                <h2 class="table-title">Most Points Winner</h2>
+                <p>{{ higest_point_students.3.First_name }} {{ higest_point_students.3.Last_name }}</p>
+                <div id="result"></div>
+            </div>
+        </div>
+        <!--average points per grade-->
+        <div id="avgpg" class="tabcontent">
+            
         </div>
         <!--javascript-->
         <script>
@@ -356,7 +293,49 @@
                     }
                 });
             }
+            var total9 = "{{ total9|safe }}";
+            var total10= "{{ total10|safe }}";
+            var total11 = "{{ total11|safe }}";
+            var total12 = "{{ total12|safe }}";
+            var data1 = [total9, total10, total11, total12];
+
+            function generateChartAll() {
+                var ctx = document.getElementById("myChart1").getContext('2d');
+                var myChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'total points per grade',
+                            data: data1,
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(255,99,132,1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
+                    }
+                });
+            }
             // Call the function to generate the chart
+            generateChartAll();
             generateChart();
             //function to open a tab when the tab is clicked
             function openCat(evt, catName) {

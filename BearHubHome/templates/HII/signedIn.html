@@ -81,7 +81,7 @@
 						</tr>
 					{% endfor %}
 				</table>
-				<a class="button" href="{% url 'bear:events' %}" style="float: right;">View all events here</a>
+				<a class="button" href="{% url 'bear:events' user_id=user.id %}" style="float: right;">View all events here</a>
 			</div>
 			<div class="containera">
 				<h2 class="table-title">Prizes</h2>
