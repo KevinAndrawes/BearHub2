@@ -10,8 +10,7 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
-# Create your views here.
-class LogInForm(forms.Form):
+class LogInForm(forms.Form):# form for longing in
     id = forms.CharField(label="ID")
     password = forms.CharField(label="Password", widget=forms.PasswordInput())
 
@@ -61,30 +60,37 @@ def LogIn(request):
             form = LogInForm()
     return render(request, "HII/StudentPage.html", {"form": LogInForm()})
 def StudentPage(request, user_id):
+    # Try to retrieve a student instance with the given user_id
     try:
         user = Student.objects.get(pk=user_id)
+        # Retrieve all events for this student and order them by date
         events = user.event.all().order_by('date')
+        # Retrieve all events that the student hasn't signed up for yet and order them by date
         Nonevents = Event.objects.exclude(id__in=user.event.all().values_list('id', flat=True)).order_by('date')
+        # Retrieve all rewards
         Rewards = Reward.objects.all()
-        return render(request, "HII/signedIn.html", {"user": user,"events": events,"Nonevents":Nonevents, "Rewards":Rewards})
-
+        # Render the signedIn.html template with the retrieved data
+        return render(request, "HII/signedIn.html", {"user": user, "events": events, "Nonevents": Nonevents, "Rewards": Rewards})
+    # If the student doesn't exist, redirect to the login page
     except Student.DoesNotExist:
         return HttpResponseRedirect(reverse("bear:LogIn"))
-
 def events(request, user_id):
+    # Try to retrieve a student instance with the given user_id
     try:
         user = Student.objects.get(pk=user_id)
+        # Retrieve all events for this student and order them by date
         events = user.event.all().order_by('date')
+        # Retrieve all events that the student hasn't signed up for yet and order them by date
         Nonevents = Event.objects.exclude(id__in=user.event.all().values_list('id', flat=True)).order_by('date')
-        return render(request, "HII/signedIn.html", {"user": user,"events": events,"Nonevents": Nonevents})
-
+        # Render the signedIn.html template with the retrieved data
+        return render(request, "HII/signedIn.html", {"user": user, "events": events, "Nonevents": Nonevents})
+    # If the student doesn't exist, redirect to the login page
     except Student.DoesNotExist:
         return HttpResponseRedirect(reverse("bear:LogIn"))
-
 def SignUp(request):
     if request.method=="POST":
         form = SignUpForm(request.POST)
-        if form.is_valid():
+        if form.is_valid():# getting all data
             passwordIn = form.cleaned_data.get("password")
             password2In = form.cleaned_data.get("password2")
             idIn = form.cleaned_data.get("id")
@@ -92,7 +98,7 @@ def SignUp(request):
             lastname = form.cleaned_data.get("lastName")
             Grade_level = form.cleaned_data.get("Grade_level")
             email = form.cleaned_data.get("email")
-            if passwordIn and password2In and passwordIn != password2In:
+            if passwordIn and password2In and passwordIn != password2In:#checking if both passwords match
                 error_message = "These passwords do not match."
                 return render(request, "HII/signUp.html", {"form": form, "error_message": error_message})
             if Student.objects.filter(pk=idIn).exists():
@@ -153,18 +159,18 @@ def adminLogIn(request):#The method for admins
             else:
                 form = LogInForm()
         return render(request, "HII/AdminLogIn.html", {"form": LogInForm()})
-def AdminPage(request, user_id):
+def AdminPage(request, user_id):# Requesting admin page 
     try:
         user = AdminUser.objects.get(pk=user_id)
         events = Event.objects.all().order_by('date')
         eventRequests = EventRequest.objects.all()
         return render(request, "HII/AdminPage.html", {"user": user, "events": events,"eventRequests":eventRequests})
-    except AdminUser.DoesNotExist:
+    except AdminUser.DoesNotExist:# Handling if the user id doesn't match to an admin
         return HttpResponseRedirect(reverse("bear:adminLogIn"))
-def Update(request):
+def Update(request):# update events
     if request.method == 'POST':
         values = json.loads(request.body)
-        for value in values:
+        for value in values:# Updating all the events that got changed
             # update the event with the specified values
             event = Event.objects.get(name=value['name'])
             event.date = value['date']
@@ -172,7 +178,7 @@ def Update(request):
             event.point_value = value['point_value']
             event.name=value['name']
 
-            event.save()
+            event.save()# Saving in the database
         return JsonResponse({'success': True})
     else:
         return JsonResponse({'success': False, 'error': 'Invalid request method'})
@@ -275,7 +281,7 @@ def claim_reward(request):
         # Handle case where student doesn't have enough points
         pass
     return StudentPage(request,student_id)
-def checkReward(request):
+def checkReward(request): # Checking if the code is valid that the admin enters
     if request.method == 'POST':
         data = json.loads(request.body)
         key = data.get('searchValue')
