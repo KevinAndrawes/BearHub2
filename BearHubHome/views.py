@@ -291,30 +291,30 @@ def checkReward(request): # Checking if the code is valid that the admin enters
         except RewardRequest.DoesNotExist:
             return JsonResponse({'message': 'Sorry, that code is incorrect.'})
 
-def report(request):
-    users = Student.objects.order_by('-points')
+def report(request):# the view for the report
+    users = Student.objects.order_by('-points')#getting all the grades and ordering them by points
     users9 = Student.objects.filter(grade_level=9).order_by('-points')
     users10 = Student.objects.filter(grade_level=10).order_by('-points')
     users11 = Student.objects.filter(grade_level=11).order_by('-points')
     users12 = Student.objects.filter(grade_level=12).order_by('-points')
     avg9 = 0
-    for user in users9:
+    for user in users9:# getting the averages for 9th grade
         avg9 += user.points
     avg9 = round(avg9 / len(users9))
     avg10 = 0
-    for user in users10:
+    for user in users10:# getting the averages for 9th grade
         avg10 += user.points
     avg10 = round(avg10 / len(users10))
     avg11 = 0
-    for user in users11:
+    for user in users11:# getting the averages for 10th grade
         avg11 += user.points
     avg11 = round(avg11 / len(users11))
     avg12 = 0
-    for user in users12:
+    for user in users12:# getting the averages for 11th grade
         avg12 += user.points
     avg12 = round(avg12 / len(users12))
     avg = 0
-    for user in users:
+    for user in users:# getting the averages for 12th grade
         avg += user.points
-    avg = round(avg / len(users))
+    avg = round(avg / len(users)) #returning all the elements need for the report
     return render(request, "HII/report.html", {"users": users, "users9": users9, "users10": users10, "users11": users11, "users12": users12, "avg9": avg9, "avg10": avg10, "avg11": avg11, "avg12": avg12, "avg": avg})
