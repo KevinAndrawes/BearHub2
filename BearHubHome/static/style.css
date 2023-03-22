@@ -102,6 +102,12 @@ h1, p {
 text-align: center;
 margin-top: 50px;
 }
+h1 {
+font-weight: large;
+}
+p {
+font-size: large;
+}
 form {
 width: auto;
 margin: 0 auto;
@@ -184,6 +190,7 @@ color: white;
 font-size: 30px;
 }
 .topnav {
+z-index: 10000000;
 position: fixed;
 background-color: #333;
 width: 100%;

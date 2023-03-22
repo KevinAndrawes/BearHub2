@@ -115,8 +115,9 @@ def SignUp(request):
     return render(request, "HII/signUp.html", {"form": form})
 
 def index(request):
+    users = Student.objects.order_by('-points')
     allevents = Event.objects.order_by('date')
-    return render(request,"HII/index.html")
+    return render(request,"HII/index.html", {"users": users})
 def get_events(request):# gets the events to be displayed on the calender
     events = Event.objects.all()#grabbing all the events from the database
     data = []

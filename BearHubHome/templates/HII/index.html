@@ -13,7 +13,7 @@
   </head>
   <body>
     <!--Top navigation bar with logo, menu, login, and signin-->
-    <div class="topnav">
+    <div class="topnav" style="z-index: 10;">
       <a onclick="openNav()" class="menu">Menu</a>
       <a href="{% url 'bear:help' %}">Help</a>
       <img src="{% static 'png/only-logo-white.png' %}" alt="logo" style="width:50px; height:40px; vertical-align: center; padding-left: 10px;">
@@ -45,14 +45,53 @@
       </div>
     </div>
     <div class="indexs">
-      <div class="box1">
-        <div class="ui container">
-          <div class="ui grid">
-            <div class="ui sixteen column">
-              <div id="calendar" style="width: 100%"></div>
-            </div>
+      <div class="box1" style="width: calc(60% - 40px);">
+        <div class="ui grid">
+          <div class="ui sixteen column">
+            <div id="calendar"></div>
           </div>
         </div>
+      </div>
+      <div class="box2" style="width: calc(40% - 40px);">
+        <h1>Attend Events!</h1>
+        <p>Once you join BearHub by clicking the "Sign Up" button on the top right and filling out the form, you will be able to log in and access your account.</p>
+        <P>From there, you have access to a list of upcoming events that are hosted by the school. These events range from interest meetings to sports games. Explore the vast variety of events that you can attend and discover new events!</P>
+        <p>Once you attended an event, you can log in and claim your points for your attendence. In your personal student page, there will be a table titled "Available Events". find the event that you would like to claim points for and wait for an admin to confirm your request.</p>
+        <p>Now that you are gaining points, locate the table on your personal student page titled "Prizes", and claim your prize by paying your points. Locate the reward reciept in your email inbox and give the code to an office worker in the front office of the school for your prize!</p>
+        <p>Through these events, BearHub shoots for not only an increase in student involvement, but also new friendships for students. With more people motivated to go to events, more people can introduce themselves and gain many new friends!</p>
+      </div>
+    </div>
+    <div class="indexs">
+      <div class="box1">
+        <h1>Compete With Peers!</h1>
+        <p>Here at BearHub, we believe that the development of a student relies on their compitition in their developmental years. That's why we made this a friendly compitition between peers.</p>
+        <p>Every quarter, the student that has accumulated the most points will </p>
+      </div>
+      <div class="box2">
+        <div class="containera">
+          <h2 class="table-title">Top students</h2>
+          <!--table of top 10 students-->
+          <table>
+              <thead>
+                  <tr>
+                      <th>Place</th>
+                      <th>Name</th>
+                      <th>Grade</th>
+                      <th>Points</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  {% for user in users|slice:":10" %}<!--for loop for first 10 students-->
+                      <tr>
+                          <td>{{ forloop.counter }}</td>
+                          <td>{{ user.First_name }}<br>{{ user.Last_name }}</td>
+                          <td>{{ user.grade_level }}</td>
+                          <td>{{ user.points }}</td>
+                      </tr>
+                  {% endfor %}
+              </tbody>
+          </table>
+      </div>
       </div>
     </div>
     <!--link to js file-->
@@ -84,6 +123,7 @@
         }
     });
 });
+
     </script>
   </body>
 </html>
