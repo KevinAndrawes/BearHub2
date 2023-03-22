@@ -117,8 +117,9 @@ def SignUp(request):
 def kevin(request):
     return HttpResponse("Hello Kevin")
 def index(request):
+    users = Student.objects.order_by('-points')
     allevents = Event.objects.order_by('date')
-    return render(request,"HII/index.html")
+    return render(request,"HII/index.html", {"users": users})
 def get_events(request):
     events = Event.objects.all()
     data = []
