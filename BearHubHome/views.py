@@ -290,6 +290,7 @@ def checkReward(request): # Checking if the code is valid that the admin enters
         key = data.get('searchValue')
         try:
             rewardRequest = RewardRequest.objects.get(Key=key)
+            rewardRequest.delete()
             return JsonResponse({'message': 'This code is correct, this code is no longer valid!'})
         except RewardRequest.DoesNotExist:
             return JsonResponse({'message': 'Sorry, that code is incorrect.'})

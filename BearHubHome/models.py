@@ -7,6 +7,8 @@ class Student(models.Model):
     password= models.CharField(max_length=64)
     points = models.IntegerField()
     Email = models.EmailField()
+    def __str__(self):
+        return f"{self.First_name} {self.Last_name}"
 class Event(models.Model):
     name= models.CharField(max_length=64)
     date = models.DateField(max_length=24)

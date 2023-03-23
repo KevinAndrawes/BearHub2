@@ -41,22 +41,22 @@
       <p class="question" onclick="toggleAnswer('answer1')">How do I earn points for events that I have gone to? ↓</p>
       <p class="answer" id="answer1">
           As a student, you can earn points by attending various events. <br>
-          To do this, simply request points next to the event name on the home page.<br> 
+          To do this, simply request points next to the event name on the home page.<br>
           The request is then sent to an administrator for approval or denial.<br>
-      </p> 
+      </p>
     </div>
     <!--Clickable question with answer-->
     <div>
       <p class="question" onclick="toggleAnswer('answer2')">Where do I see how many points I have? ↓</p>
       <p class="answer" id="answer2">
-        To see the amount of points that you currently have, you must hover over your name that is in the top right of the header tab.<br> 
+        To see the amount of points that you currently have, you must hover over your name that is in the top right of the header tab.<br>
         From there, you will be able to see how many points the user currently has along with their grade level.</p>
     </div>
     <!--Clickable question with answer-->
     <div>
       <p class="question" onclick="toggleAnswer('answer3')">(ADMIN) How do I give points to students who have attended events? ↓</p>
       <p class="answer" id="answer3">
-          To give points to students who have attended school events, they must first request the points from their student account.<br> 
+          To give points to students who have attended school events, they must first request the points from their student account.<br>
           From there, you are able to approve or deny their request for the points.
       </p>
     </div>
@@ -64,14 +64,14 @@
     <div>
       <p class="question" onclick="toggleAnswer('answer4')">How do I know that my points request has been approved or denied?↓</p>
       <p class="answer" id="answer4">
-        When a Admin accepts or rejects your request, the email that you provided with, will receive an update of the result of the event that you requested;<br> 
+        When a Admin accepts or rejects your request, the email that you provided with, will receive an update of the result of the event that you requested;<br>
         either Accepted or denied.</p>
     </div>
     <!--Clickable question with answer-->
     <div>
       <p class="question" onclick="toggleAnswer('answer5')">How do I redeem prizes using my points? ↓</p>
       <p class="answer" id="answer5">
-        To see the prizes you are able to redeem with your points, you must go to your home page. On your home page there is a table that displays all of the prizes currently available.<br> 
+        To see the prizes you are able to redeem with your points, you must go to your home page. On your home page there is a table that displays all of the prizes currently available.<br>
         When you click “Claim” on the prize, the points will be taken out of your account, and your request for the prize will be sent to school admin.
       </p>
     </div>
@@ -79,10 +79,27 @@
     <div>
       <p class="question" onclick="toggleAnswer('answer6')">How do I see my points report? ↓</p>
       <p class="answer" id="answer6">
-        To see the points report, you must click on the “Report” button next to your name on the header bar.<br> 
+        To see the points report, you must click on the “Report” button next to your name on the header bar.<br>
         The button will take you to a page where you will be able to see a graph showing each grade level and the amount of points they earned, and a ranked listing of the entire school and each grade level and the students who have the top points for each category.
       </p>
+        <h1>Contact Us</h1>
+        <form method="post">
+          {% csrf_token %}
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name"><br><br>
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email"><br><br>
+          <label for="message">Message:</label><br>
+          <textarea id="message" name="message" rows="5" cols="50"></textarea><br><br>
+          <input type="submit" value="Submit">
+        </form>
+     
+        <h1>Thanks for contacting us!</h1>
+        <p>We'll get back to you as soon as possible.</p>
     </div>
     <script src="{% static 'scripts.js' %}"></script><!--link to external script file-->
-  </body>
-</html>
+   
+    </body>
+  </html>
+ 
+
