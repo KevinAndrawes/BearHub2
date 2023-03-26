@@ -1,0 +1,130 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <!--Website head with Favicon and links to external files-->
+  <head>
+    <link rel=icon href="{% static 'icon/only-logo.ico' %}" sizes=128x128 type=image/png>
+    <meta charset="UTF-8">
+    <title>BearHub</title>
+    <link href="{% static 'style.css' %}" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/semantic.min.css" rel="stylesheet">
+  </head>
+  <body>
+    <!--Top navigation bar with logo, menu, login, and signin-->
+    <div class="topnav" style="z-index: 10;">
+      <a onclick="openNav()" class="menu">Menu</a>
+      <a href="{% url 'bear:help' %}">Help</a>
+      <img src="{% static 'png/only-logo-white.png' %}" alt="logo" style="width:50px; height:40px; vertical-align: center; padding-left: 10px;">
+      <a href="{% url 'bear:LogIn' %}">Log In</a>
+      <a href="{% url 'bear:signUp' %}">Sign Up</a>
+    </div>
+    <!--Side navigation bar opened from menu in topnav-->
+    <div id="mySidenav" class="sidenav">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+      <a href="{% url 'bear:index' %}">Home</a>
+      <a href="{% url 'bear:help' %}">Help</a>
+      <a href="{% url 'bear:report' %}">Report</a>
+    </div>
+    <!--site header-->
+    <header>
+      <img src="{% static 'png/logo-no-background.png' %}" alt="logo" style="width:1000px; height:151px; padding:4px;">
+      <p>The place for students to connect and collaborate!</p>
+    </header>
+    <div class="indexs">
+      <div class="box1">
+        <h1>Welcome to BearHub!</h1>
+        <p>At BearHub, we believe that school is not just about academics, but also about getting involved in extracurricular activities and events. That's why we've created a platform that rewards students for their participation in school events.</p>
+        <p>From sports games and academic competitions to volunteering and community service events, BearHub has it all. Students can easily browse upcoming events, sign up to participate, and track their progress towards earning rewards.</p>
+        <p>But the fun doesn't stop there! BearHub also offers a competative environment for students with the report that shows the top students based on points. Through this, students are motivated and determined to compete with their peers through healthy compitition.</p>
+        <p>So what are you waiting for? Join BearHub today and start earning rewards for your participation in school events. Let's make your school experience even more unforgettable!</p>
+      </div>
+      <div class="box2">
+        <img src="{% static 'png/color-picture-logo.png' %}" alt="BearHub..." style="width: 100%;">
+      </div>
+    </div>
+    <div class="indexs">
+      <div class="box1" style="width: calc(60% - 40px);">
+        <div class="ui grid">
+          <div class="ui sixteen column">
+            <div id="calendar"></div>
+          </div>
+        </div>
+      </div>
+      <div class="box2" style="width: calc(40% - 40px);">
+        <h1>Attend Events!</h1>
+        <p>Once you join BearHub by clicking the "Sign Up" button on the top right and filling out the form, you will be able to log in and access your account.</p>
+        <P>From there, you have access to a list of upcoming events that are hosted by the school. These events range from interest meetings to sports games. Explore the vast variety of events that you can attend and discover new events!</P>
+        <p>Once you attended an event, you can log in and claim your points for your attendence. In your personal student page, there will be a table titled "Available Events". find the event that you would like to claim points for and wait for an admin to confirm your request.</p>
+        <p>Now that you are gaining points, locate the table on your personal student page titled "Prizes", and claim your prize by paying your points. Locate the reward reciept in your email inbox and give the code to an office worker in the front office of the school for your prize!</p>
+        <p>Through these events, BearHub shoots for not only an increase in student involvement, but also new friendships for students. With more people motivated to go to events, more people can introduce themselves and gain many new friends!</p>
+      </div>
+    </div>
+    <div class="indexs">
+      <div class="box1">
+        <h1>Compete With Peers!</h1>
+        <p>Here at BearHub, we believe that the development of a student relies on their compitition in their developmental years. That's why we made this a friendly compitition between peers.</p>
+        <p>Every quarter, the student that has accumulated the most points will recieve a top prize that is picked out by the admins. The prize is selected to cost proportionally to the ammount of accumulated points, ranging from bags of candy to electronics.</p>
+        <p>Although BearHub introduces healthy compitition into the highschool environment, most highschool students are at a disadvantange to others, making it hard for them to excell.</p>
+        <p> That's why BearHub has a quarterly random winner, who is picked randomly out of all students, to recieve a prize from the front office!</p>
+      </div>
+      <div class="box2">
+        <div class="containera">
+          <h2 class="table-title">Top students</h2>
+          <!--table of top 10 students-->
+          <table>
+              <thead>
+                  <tr>
+                      <th>Place</th>
+                      <th>Name</th>
+                      <th>Grade</th>
+                      <th>Points</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  {% for user in users|slice:":10" %}<!--for loop for first 10 students-->
+                      <tr>
+                          <td>{{ forloop.counter }}</td>
+                          <td>{{ user.First_name }}<br>{{ user.Last_name }}</td>
+                          <td>{{ user.grade_level }}</td>
+                          <td>{{ user.points }}</td>
+                      </tr>
+                  {% endfor %}
+              </tbody>
+          </table>
+      </div>
+      </div>
+    </div>
+    <!--link to js file-->
+    <script src="{% static 'scripts.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/semantic.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.js"></script>
+    <script>
+      $(document).ready(function() {
+        $('#calendar').fullCalendar({
+          header: {
+              left: 'prev,next today',
+              center: 'title',
+              right: 'month,basicWeek,basicDay'
+          },
+          defaultDate: Date(),
+          navLinks: true, // can click day/week names to navigate views
+          editable: true,
+          eventLimit: true, // allow "more" link when too many events
+          events: function(start, end, timezone, callback) {
+            $.ajax({
+              url: '{% url "bear:get_events" %}',
+              dataType: 'json',
+              success: function(response) {
+                  callback(response);
+              }
+            });
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
